@@ -1,5 +1,6 @@
 <?php
 
+
 use App\Livewire\Page\Employees;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
@@ -22,6 +23,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('settings/profile', Profile::class)->name('settings.profile');
     Route::get('settings/password', Password::class)->name('settings.password');
     Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
+
+    Route::get('map/',  \App\Livewire\Map\Index::class)->name('map.index');
 });
+
+Route::get('map-view/', \App\Livewire\Map\MapView::class)->name('map.view');
 
 require __DIR__ . '/auth.php';
