@@ -10,6 +10,8 @@ class MapView extends Component
 {
     public $projects = [];
 
+    public string $title = 'Map View';
+
     public function mount()
     {
         // Load all projects with latitude & longitude

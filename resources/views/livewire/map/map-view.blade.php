@@ -1,5 +1,6 @@
-<div>
+@section('title', config('app.name').' |'.' '.$title)
 
+<div>
     <a href="{{@route('map.index')}}">
         <button
             class="absolute z-50 px-3 py-1 mt-2 ml-2 text-white rounded bg-gray-500 opacity-50 hover:bg-black hover:opacity-100 transition duration-200  ">
