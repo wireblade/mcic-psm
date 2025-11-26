@@ -15,12 +15,12 @@
         <flux:navlist variant="outline">
             <flux:navlist.group :heading="__('Projects')" class="grid">
 
-                <flux:navlist.item icon="document-text" :href="route('map.index')"
+                <flux:navlist.item icon="arrow-path" :href="route('map.index')"
                     :current="request()->routeIs('map.index')" wire:navigate>{{ __('Active')
                     }}</flux:navlist.item>
 
-                <flux:navlist.item icon="document-text" :href="route('map.finished')"
-                    :current="request()->routeIs('map.finished')" wire:navigate>{{ __('Finished')
+                <flux:navlist.item icon="check-circle" :href="route('map.finished')"
+                    :current="request()->routeIs('map.finished')" wire:navigate>{{ __('Completed')
                     }}</flux:navlist.item>
 
 

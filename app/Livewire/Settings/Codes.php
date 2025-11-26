@@ -9,6 +9,9 @@ class Codes extends Component
 {
     public $code;
 
+    public $openRemoveCode = false;
+    public $removeCodeId;
+
     public function saveCode()
     {
         $this->validate([
@@ -24,11 +27,18 @@ class Codes extends Component
         $this->reset();
     }
 
-    public function removeCode() {}
+    public function openRemoveCode($id)
+    {
+        $this->removeCodeId = $id;
+
+        $code = Code::where('id', $this->removeCodeId)->first();
+
+        $this->openRemoveCode = true;
+    }
 
     public function render()
     {
-        $id = Code::first()->value('id');
+        $id = Code::first();
 
         $codeCounts = Code::all();
 

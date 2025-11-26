@@ -16,10 +16,10 @@
         <h1 class="text-2xl font-bold">{{$title}}</h1>
     </div>
 
-    <button wire:click="openAddModal" class="px-2 py-2 mt-4 rounded text-white bg-blue-500 hover:bg-blue-700">
+    <button wire:click="openAddModal"
+        class="px-2 py-2 mt-4 shadow-md rounded-md text-white bg-blue-500 hover:bg-blue-700 transition duration-200">
         <i class="fa fa-plus-circle"></i> Add Project Location
     </button>
-
 
     <div class="overflow-x-auto rounded-lg shadow-md mt-5">
         <table class="min-w-full text-sm text-left bg-white dark:bg-gray-800 ">
@@ -70,7 +70,6 @@
                             </div>
                         </div>
 
-
                         <div x-data="{ open: false }" class="relative inline-block p-1">
                             <button wire:click="openDeleteModal({{$project->id}})" @mouseenter="open = true"
                                 @mouseleave="open = false"
@@ -96,12 +95,9 @@
         </table>
     </div>
 
-
     <div class="mt-4">
         {{ $projects->links() }}
     </div>
-
-
 
     <livewire:map.add-modal />
 

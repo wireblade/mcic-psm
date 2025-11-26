@@ -46,9 +46,7 @@ class DeleteModal extends Component
     {
         $codes = Code::first();
 
-        $count = $codes->count();
-
-        if ($count < 1) {
+        if (empty($codes)) {
 
             $this->dispatch('no-delete-code');
 
@@ -59,7 +57,7 @@ class DeleteModal extends Component
 
             $this->deletionCode = $codes->delete_code;
 
-            $validated = $this->validate([
+            $this->validate([
                 'inputCode' => [
                     'required',
                     function ($attribute, $value, $fail) {
@@ -70,16 +68,13 @@ class DeleteModal extends Component
                 ]
             ]);
 
-            if ($validated) {
+            $project = Project::findOrFail($this->projectDeleteId);
 
-                $project = Project::findOrFail($this->projectDeleteId);
+            $project->delete();
 
-                $project->delete();
+            $this->dispatch('delete-success');
 
-                $this->dispatch('delete-success');
-
-                $this->openDeleteModal = false;
-            }
+            $this->openDeleteModal = false;
         }
     }
 
