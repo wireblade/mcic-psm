@@ -4,6 +4,7 @@ namespace App\Livewire\Map;
 
 use App\Models\Code;
 use App\Models\Project;
+use Illuminate\Support\Facades\Hash;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -55,26 +56,31 @@ class DeleteModal extends Component
             $this->reset();
         } else {
 
-            $this->deletionCode = $codes->delete_code;
+            $deletionCode = $codes->delete_code;
 
-            $this->validate([
-                'inputCode' => [
-                    'required',
-                    function ($attribute, $value, $fail) {
-                        if ($value !== $this->deletionCode) {
-                            $fail('error');
-                        }
-                    }
-                ]
-            ]);
+            // $this->validate([
+            //     'inputCode' => [
+            //         'required',
+            //         function ($attribute, $value, $fail) {
+            //             if ($value !== $this->deletionCode) {
+            //                 $fail('error');
+            //             }
+            //         }
+            //     ]
+            // ]);
 
-            $project = Project::findOrFail($this->projectDeleteId);
+            if (! Hash::check($this->inputCode, $deletionCode)) {
+                $this->addError('inputCode', 'Access Denied!');
+            } else {
 
-            $project->delete();
+                $project = Project::findOrFail($this->projectDeleteId);
 
-            $this->dispatch('delete-success');
+                $project->delete();
 
-            $this->openDeleteModal = false;
+                $this->dispatch('delete-success');
+
+                $this->openDeleteModal = false;
+            }
         }
     }
 

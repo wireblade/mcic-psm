@@ -17,8 +17,8 @@
     </div>
 
     <button wire:click="openAddModal"
-        class="px-2 py-2 mt-4 shadow-md rounded-md text-white bg-blue-500 hover:bg-blue-700 transition duration-200">
-        <i class="fa fa-plus-circle"></i> Add Project Location
+        class="px-2 py-2 shadow-md rounded-md text-white bg-blue-500 hover:bg-blue-700 transition duration-200">
+        <i class="fa fa-plus-circle mr-1"></i> Add Project
     </button>
 
     <div class="overflow-x-auto rounded-lg shadow-md mt-5">
@@ -36,7 +36,7 @@
             </thead>
             <tbody class="text-gray-700 dark:text-gray-200">
                 @forelse($projects as $project)
-                <tr class="hover:bg-gray-50 dark:hover:bg-gray-700 transition">
+                <tr class="hover:bg-gray-50 dark:hover:bg-gray-900 transition">
                     <td class="px-6 py-3 border-b border-gray-200 dark:border-gray-700">{{$projects->firstItem() +
                         $loop->index}}</td>
                     <td class="px-6 py-3 border-b border-gray-200 dark:border-gray-700">{{$project->name}}</td>

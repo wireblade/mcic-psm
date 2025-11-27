@@ -15,7 +15,7 @@
                 x-transition:leave-end="opacity-0 scale-50 translate-y-8"
                 class="bg-white p-6 rounded-lg w-full max-w-lg dark:bg-gray-800">
 
-                <h2 class="text-xl font-bold mb-4">Add Department</h2>
+                <h2 class="text-xl font-bold mb-4">Add Project</h2>
                 <div class="fakefiller-allow">
                     <div class="space-y-3">
 
@@ -67,7 +67,7 @@
                 <div class="mt-5 flex justify-end gap-3">
 
                     <button wire:click="$set('openAddModal', false)"
-                        class="px-3 py-2 rounded border border-gray-500 text-grey-500 hover:bg-gray-500 hover:text-white transition duration-200">Cancel</button>
+                        class="px-3 py-2 rounded border border-gray-500 text-grey-500 dark:border-gray-200 dark:text-gray-200 hover:bg-gray-500 hover:text-white transition duration-200">Cancel</button>
 
                     <button wire:click="saveProject"
                         class="px-3 py-2 rounded text-blue-500 border border-blue-500 hover:bg-blue-500 hover:text-white transition duration-200">Add

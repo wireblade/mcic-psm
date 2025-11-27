@@ -3,37 +3,40 @@
 namespace App\Livewire\Settings;
 
 use App\Models\Code;
+use Illuminate\Support\Facades\Hash;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Codes extends Component
 {
     public $code;
+    public $code_confirmation;
 
     public $openRemoveCode = false;
     public $removeCodeId;
 
-    public function saveCode()
+    #[On('remove-success')]
+    public function removeFlashMessage()
     {
-        $this->validate([
-            'code' => 'required|max:255',
-        ]);
-
-        Code::create([
-            'delete_code' => $this->code,
-        ]);
-
-        session()->flash('success', 'Code successfully registered');
-
-        $this->reset();
+        session()->flash('success', 'Deletion code successfully removed!');
     }
 
-    public function openRemoveCode($id)
+    public function openRemoveModal($id)
     {
-        $this->removeCodeId = $id;
+        $this->dispatch('open-remove-modal', id: $id);
+    }
 
-        $code = Code::where('id', $this->removeCodeId)->first();
+    public function saveCode()
+    {
+        $validated =  $this->validate([
+            'code' => 'required|max:255|confirmed',
+        ]);
 
-        $this->openRemoveCode = true;
+        $validated['delete_code'] = Hash::make($validated['code']);
+
+        Code::create($validated);
+
+        session()->flash('success', 'Code successfully registered');
     }
 
     public function render()
