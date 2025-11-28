@@ -19,27 +19,44 @@ class Index extends Component
         session()->flash('success', 'Project successfully added!');
     }
 
-    #[On('finish-success')]
-    public function finishFlashMessage()
+    #[On('edit-success')]
+    public function editFlashMessage($name, $test)
     {
-        session()->flash('success', 'Project successfully finished!');
+        session()->flash('success', 'Project: ' . $name  . ' successfully updated!');
+    }
+
+    #[On('edit-no-changes')]
+    public function editNoChangeFlashMessage($name)
+    {
+        session()->flash('error', 'No changes were made to Project:' . ' ' . $name);
+    }
+
+    #[On('finish-success')]
+    public function finishFlashMessage($name)
+    {
+        session()->flash('success', 'Project: ' . $name  . ' successfully finished!');
     }
 
     #[On('delete-success')]
-    public function deleteFlashMessage()
+    public function deleteFlashMessage($name)
     {
-        session()->flash('success', 'Project successfully deleted!');
+        session()->flash('success', 'Project: ' . $name  . ' successfully deleted!');
     }
 
     #[On('no-delete-code')]
     public function noDeleteCodeFlashMessage()
     {
-        session()->flash('error', 'There is no deletion code available on the system. please register one in the settings page');
+        session()->flash('error', 'There is no deletion code available on the system. please register one in the settings');
     }
 
     public function openAddModal()
     {
         $this->dispatch('open-add-modal');
+    }
+
+    public function openEditModal($id)
+    {
+        $this->dispatch('open-edit-modal', id: $id);
     }
 
     public function openFinishModal($id)

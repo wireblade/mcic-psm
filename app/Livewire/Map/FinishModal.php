@@ -35,7 +35,7 @@ class FinishModal extends Component
             'status' => $this->finish,
         ]);
 
-        $this->dispatch('finish-success');
+        $this->dispatch('finish-success', name: $this->name);
     }
 
     public function render()

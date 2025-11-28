@@ -15,16 +15,12 @@ class AddModal extends Component
     public $latitude;
     public $longitude;
 
-    protected $rules = [
-        'name' => 'required|unique:projects,name',
-    ];
-
     protected $messages = [
-        'name.unique' => 'The :attribute has already been taken.',
-    ];
-
-    protected $validationAttributes = [
-        'name' => 'id', // This will replace :attribute in error messages
+        'name.unique' => 'The ID has already been taken.',
+        'latitude.numeric' => 'Not an actual latitude.',
+        'longitude.numeric' => 'Not an actual longitude.',
+        'latitude.required' => 'please enter valid latitude',
+        'longitude.required' => 'please enter valid longitude',
     ];
 
     #[On('open-add-modal')]
@@ -38,8 +34,8 @@ class AddModal extends Component
         $data = $this->validate([
             'name' => 'required|max:255|string|unique:projects,name',
             'description' => 'nullable|string|max:1000',
-            'latitude' => 'required|numeric',
-            'longitude' => 'required|numeric',
+            'latitude' => 'required|numeric|between:-90,90',
+            'longitude' => 'required|numeric|between:-180,180',
         ]);
 
         Project::create($data);

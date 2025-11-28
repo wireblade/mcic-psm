@@ -26,11 +26,11 @@
             <thead class="bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 uppercase text-xs">
                 <tr>
                     <th class="px-6 py-3 border-b border-gray-300 dark:border-gray-600">No</th>
-                    <th class="px-6 py-3 border-b border-gray-300 dark:border-gray-600">Project Name</th>
+                    <th class="px-6 py-3 border-b border-gray-300 dark:border-gray-600">Project ID</th>
                     <th class="px-6 py-3 border-b border-gray-300 dark:border-gray-600">Latitude</th>
                     <th class="px-6 py-3 border-b border-gray-300 dark:border-gray-600">Longitude</th>
                     <th class="px-6 py-3 border-b border-gray-300 dark:border-gray-600">Description</th>
-                    <th class="px-6 py-3 border-b border-gray-300 dark:border-gray-600 w-40 ">Actions
+                    <th class="px-6 py-3 border-b border-gray-300 dark:border-gray-600 text-center">Actions
                     </th>
                 </tr>
             </thead>
@@ -44,10 +44,11 @@
                     <td class="px-6 py-3 border-b border-gray-200 dark:border-gray-700">{{$project->longitude}}</td>
                     <td class="px-6 py-3 border-b border-gray-200 dark:border-gray-700">{{$project->description}}
                     </td>
-                    <td class="border-b border-gray-200 dark:border-gray-700">
+                    <td class="border-b border-gray-200 dark:border-gray-700 text-center">
 
                         <div x-data="{ open: false }" class="relative inline-block p-1">
-                            <button @mouseenter="open = true" @mouseleave="open = false"
+                            <button wire:click="openEditModal({{$project->id}})" @mouseenter="open = true"
+                                @mouseleave="open = false"
                                 class="px-2 py-1 rounded text-blue-500 border border-blue-500 hover:bg-blue-700 hover:text-white transition duration-200">
                                 <i class="fa fa-edit justify-center" title="Edit"></i>
                             </button>
@@ -87,7 +88,11 @@
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="4" class="border px-4 py-2 text-center">No departments found.</td>
+                    <td colspan="6" class="px-6 py-3 border-b border-gray-200 dark:border-gray-700">
+                        <center>
+                            No departments found.
+                        </center>
+                    </td>
                 </tr>
                 @endforelse
 
@@ -100,6 +105,8 @@
     </div>
 
     <livewire:map.add-modal />
+
+    <livewire:map.edit-modal />
 
     <livewire:map.finish-modal />
 

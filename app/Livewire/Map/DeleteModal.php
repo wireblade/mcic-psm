@@ -77,7 +77,9 @@ class DeleteModal extends Component
 
                 $project->delete();
 
-                $this->dispatch('delete-success');
+                $this->dispatch('delete-success', name: $project->name);
+
+                $this->reset();
 
                 $this->openDeleteModal = false;
             }

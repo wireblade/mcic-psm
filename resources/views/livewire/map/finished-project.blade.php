@@ -26,7 +26,7 @@
                         <th class="px-6 py-3 border-b border-gray-300 dark:border-gray-600">Latitude</th>
                         <th class="px-6 py-3 border-b border-gray-300 dark:border-gray-600">Longitude</th>
                         <th class="px-6 py-3 border-b border-gray-300 dark:border-gray-600">Description</th>
-                        <th class="px-6 py-3 border-b border-gray-300 dark:border-gray-600 w-40 ">Actions
+                        <th class="px-6 py-3 border-b border-gray-300 dark:border-gray-600 text-center ">Actions
                         </th>
                     </tr>
                 </thead>
@@ -41,44 +41,34 @@
                         <td class="px-6 py-3 border-b border-gray-200 dark:border-gray-700">{{$project->description}}
                         </td>
                         <td class="border-b border-gray-200 dark:border-gray-700">
+                            <center>
+                                <div wire:click="openEditModal({{$project->id}})" x-data="{ open: false }"
+                                    class="relative inline-block p-1">
+                                    <button @mouseenter="open = true" @mouseleave="open = false"
+                                        class="px-2 py-1 rounded text-blue-500 border border-blue-500 hover:bg-blue-700 hover:text-white transition duration-200">
+                                        <i class="fa fa-edit justify-center" title="Edit"></i>
+                                    </button>
 
-                            <div x-data="{ open: false }" class="relative inline-block p-1">
-                                <button @mouseenter="open = true" @mouseleave="open = false"
-                                    class="px-2 py-1 rounded text-blue-500 border border-blue-500 hover:bg-blue-700 hover:text-white transition duration-200">
-                                    <i class="fa fa-edit justify-center" title="Edit"></i>
-                                </button>
-
-                                <div x-show="open" x-transition
-                                    class="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 bg-black text-white text-xs rounded px-2 py-1">
-                                    Edit
+                                    <div x-show="open" x-transition
+                                        class="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 bg-black text-white text-xs rounded px-2 py-1">
+                                        Edit
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div x-data="{ open: false }" class="relative inline-block p-1">
-                                <button wire:click="openFinishModal({{ $project->id }})" @mouseenter="open = true"
-                                    @mouseleave="open = false"
-                                    class="px-2 py-1 rounded text-green-500 border border-green-500 hover:bg-green-700 hover:text-white transition duration-200">
-                                    <i class="fa fa-circle-check" title="Finish"></i>
-                                </button>
-                                <div x-show="open" x-transition
-                                    class="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 bg-black text-white text-xs rounded px-2 py-1">
-                                    Finish
+
+                                <div x-data="{ open: false }" class="relative inline-block p-1">
+                                    <button wire:click="openDeleteModal({{$project->id}})" @mouseenter="open = true"
+                                        @mouseleave="open = false"
+                                        class="px-2 py-1 rounded text-red-500 border border-red-500 hover:bg-red-700 hover:text-white transition duration-200"
+                                        title="Trash">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                    <div x-show="open" x-transition
+                                        class="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 bg-black text-white text-xs rounded px-2 py-1">
+                                        Delete
+                                    </div>
                                 </div>
-                            </div>
-
-                            <div x-data="{ open: false }" class="relative inline-block p-1">
-                                <button wire:click="openDeleteModal({{$project->id}})" @mouseenter="open = true"
-                                    @mouseleave="open = false"
-                                    class="px-2 py-1 rounded text-red-500 border border-red-500 hover:bg-red-700 hover:text-white transition duration-200"
-                                    title="Trash">
-                                    <i class="fa fa-trash"></i>
-                                </button>
-                                <div x-show="open" x-transition
-                                    class="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 bg-black text-white text-xs rounded px-2 py-1">
-                                    Delete
-                                </div>
-                            </div>
-
+                            </center>
                         </td>
                     </tr>
                     @empty
@@ -96,7 +86,10 @@
             {{ $projects->links() }}
         </div>
 
+        <livewire:map.edit-modal />
+
         <livewire:map.delete-modal />
+
 
     </section>
 </section>
