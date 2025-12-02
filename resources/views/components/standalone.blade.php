@@ -7,10 +7,6 @@
     <title>@yield('title', config('app.name'))</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 
-    {{--
-    <link href="https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.css" rel="stylesheet" />
-    <script src="https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.js"></script> --}}
-
     <link rel="stylesheet" href="{{asset('css/maplibre-gl.css')}}">
 
     <script src="{{asset('js/maplibre-gl.js')}}"></script>
@@ -26,8 +22,6 @@
         {{ $slot }}
 
     </div>
-
-
 
 </body>
 

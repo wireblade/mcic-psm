@@ -21,10 +21,22 @@ class FinishedProject extends Component
         session()->flash('success', 'Project: ' . $name . ' successfully deleted!');
     }
 
+    #[On('no-delete-code')]
+    public function noDeleteCodeFlashMessage()
+    {
+        session()->flash('error', 'No deletion code set! Please contact the administrator.');
+    }
+
     #[On('edit-no-changes')]
     public function editNoChangeFlashMessage($name)
     {
         session()->flash('error', 'No changes were made to Project:' . ' ' . $name);
+    }
+
+    #[On('edit-success')]
+    public function editSuccessFlashMessage($name)
+    {
+        session()->flash('success', 'Project: ' . $name . ' successfully updated!');
     }
 
     public function openDeleteModal($id)

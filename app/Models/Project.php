@@ -14,5 +14,7 @@ class Project extends Model
         'latitude',
         'longitude',
         'status',
+        'dateStart',
+        'dateEnd',
     ];
 }

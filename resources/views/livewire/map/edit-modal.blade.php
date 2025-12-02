@@ -45,6 +45,29 @@
                     @error('longitude') <p class="text-red-500 text-sm">{{ $message }}</p> @enderror
                 </div>
 
+                @if($status === 0)
+
+                <div class="w-full">
+                    <label for="dateStart" class="block text-sm font-medium text-gray-300 dark:text-gray-300 mb-1">
+                        Date Start
+                    </label>
+                    <input type="date" wire:model="dateStart"
+                        class="w-full px-4 py-2 border text-gray-900 dark:text-gray-100 bg-gray-100 dark:bg-gray-700 @error('dateStart') border-red-500 @else border-gray-300 dark:border-gray-600 @enderror  rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:focus:ring-blue-400 dark:focus:border-blue-400 placeholder-gray-400 dark:placeholder-gray-500 transition">
+                    @error('dateStart') <p class="text-red-500 text-sm">{{ $message }}</p> @enderror
+                </div>
+
+                @else
+
+                <div class="w-full">
+                    <label for="dateEnd" class="block text-sm font-medium text-gray-300 dark:text-gray-300 mb-1">
+                        Date End
+                    </label>
+                    <input type="date" wire:model="dateEnd"
+                        class="w-full px-4 py-2 border text-gray-900 dark:text-gray-100 bg-gray-100 dark:bg-gray-700 @error('dateEnd') border-red-500 @else border-gray-300 dark:border-gray-600 @enderror  rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 dark:focus:ring-blue-400 dark:focus:border-blue-400 placeholder-gray-400 dark:placeholder-gray-500 transition">
+                    @error('dateEnd') <p class="text-red-500 text-sm">{{ $message }}</p> @enderror
+                </div>
+
+                @endif
 
                 <div class="w-full">
                     <label for="description" class="block text-sm font-medium text-gray-300 dark:text-gray-300 mb-1">

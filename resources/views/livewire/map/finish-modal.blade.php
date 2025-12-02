@@ -21,7 +21,7 @@
 
                 <x-buttons.button action="$set('openFinishModal', false)" type="outline" label="Cancel" />
 
-                <x-buttons.button action="projectFinish" type="success-outline" label="Update" />
+                <x-buttons.button action="projectFinish" type="success-outline" label="Finish" />
 
             </div>
         </div>

@@ -36,10 +36,6 @@
 
                     <x-buttons.button action="deleteProject" type="danger-outline" label="Update" />
 
-                    <button
-                        class="px-3 py-1 bg-green-500 rounded-md hover:bg-blue-800 transition duration-200 ">test</button>
-
-
                 </div>
             </div>
         </div>

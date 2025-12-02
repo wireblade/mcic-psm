@@ -14,6 +14,7 @@ class AddModal extends Component
     public $description;
     public $latitude;
     public $longitude;
+    public $dateStart;
 
     protected $messages = [
         'name.unique' => 'The ID has already been taken.',
@@ -37,6 +38,7 @@ class AddModal extends Component
             'description' => 'nullable|string|max:1000',
             'latitude' => 'required|numeric|between:-90,90',
             'longitude' => 'required|numeric|between:-180,180',
+            'dateStart' => 'nullable|date',
         ]);
 
         Project::create($data);

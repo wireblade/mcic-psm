@@ -28,3 +28,7 @@
     id="toggleLabels">
     Show All Projects
 </button>
+
+<button id="toggleTheme"
+    class="absolute z-50 mt-2 shadow-sm shadow-black right-42 px-3 py-1 text-white rounded bg-black opacity-80 hover:bg-black hover:opacity-100 transition duration-200">
+</button>

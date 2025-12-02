@@ -18,12 +18,17 @@ class EditModal extends Component
     public $latitude;
     public $longitude;
     public $description;
+    public $dateStart;
+    public $dateEnd;
+
+    public $status;
 
     protected $messages = [
         'latitude.numeric' => 'Not an actual latitude.',
         'longitude.numeric' => 'Not an actual longitude.',
         'latitude.required' => 'please enter valid latitude',
         'longitude.required' => 'please enter valid longitude',
+        'dateEnd.after_or_equal' => 'End date must be the same as or later than the start date.',
     ];
 
     #[On('open-edit-modal')]
@@ -38,6 +43,10 @@ class EditModal extends Component
             $this->latitude = $project->latitude;
             $this->longitude = $project->longitude;
             $this->description = $project->description;
+            $this->dateStart = $project->dateStart;
+            $this->dateEnd = $project->dateEnd;
+
+            $this->status = $project->status;
 
             $this->openEditModal = true;
 
@@ -53,7 +62,9 @@ class EditModal extends Component
             $this->name === $project->name &&
             $this->latitude === $project->latitude &&
             $this->longitude === $project->longitude &&
-            $this->description === $project->description
+            $this->description === $project->description &&
+            $this->dateStart === $project->dateStart &&
+            $this->dateEnd === $project->dateEnd
         ) {
 
             $this->dispatch('edit-no-changes', name: $this->name);
@@ -66,6 +77,9 @@ class EditModal extends Component
                 'latitude' => 'required|numeric|between:-90,90',
                 'description' => 'nullable|string|max:1000',
                 'longitude' => 'required|numeric|between:-180,180',
+                'dateStart' => 'nullable|date',
+                'dateEnd' => 'nullable|date|after_or_equal:dateStart',
+
             ], $this->messages);
 
             Project::find($this->projectEditId)->update($data);
