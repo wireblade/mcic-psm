@@ -15,10 +15,10 @@ class Codes extends Component
     public $openRemoveCode = false;
     public $removeCodeId;
 
-    #[On('remove-success')]
-    public function removeFlashMessage()
+    #[On('refreshPage')]
+    public function refreshPage()
     {
-        session()->flash('success', 'Deletion code successfully removed!');
+        // This method is intentionally left blank to trigger a re-render
     }
 
     public function openRemoveModal($id)

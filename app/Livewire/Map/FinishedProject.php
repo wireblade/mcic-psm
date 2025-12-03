@@ -15,6 +15,12 @@ class FinishedProject extends Component
 
     public string $title = "Finished Project";
 
+    #[On('refreshTable')]
+    public function refreshTable()
+    {
+        // This method is intentionally left blank to trigger a re-render
+    }
+
     #[On('delete-success')]
     public function deleteFlashMessage($name)
     {

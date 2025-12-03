@@ -1,11 +1,13 @@
 @props([
 'type' => 'primary',
 'label' => '',
+'id' => '',
 'icon' => '',
 'action' => null,
 'px' => '3',
 'py' => '1',
 'mt' => '',
+'m' => '',
 ])
 
 @php
@@ -29,7 +31,7 @@ dark:hover:bg-gray-900 dark:hover:border-gray-900 dark:text-white',
 $class = $styles[$type] ?? $styles['primary'];
 @endphp
 
-<button @if($action) wire:click="{{ $action }}" @endif
-    class="px-{{$px}} py-{{$py}} mt-{{$mt}} rounded-md shadow-gray-400 dark:shadow-black shadow-sm transition duration-200 {{ $class }}">
+<button @if($action) wire:click="{{ $action }} @if($id)({{$id}})@endif" @endif
+    class="px-{{$px}} m-{{$m}} py-{{$py}} mt-{{$mt}} rounded-md shadow-gray-400 dark:shadow-black shadow-sm transition duration-200 {{ $class }}">
     <i class="{{ $icon }}"></i> {{ $label }}
 </button>

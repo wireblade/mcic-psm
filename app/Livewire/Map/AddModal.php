@@ -28,7 +28,6 @@ class AddModal extends Component
     public function openAddModal()
     {
         $this->openAddModal = true;
-        $this->dispatch('auto-focus');
     }
 
     public function saveProject()

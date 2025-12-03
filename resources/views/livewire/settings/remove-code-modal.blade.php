@@ -1,6 +1,7 @@
 <div>
     <div x-data="{ open: @entangle('openRemoveModal') }" @keyup.escape.window="open = false"
-        x-init="$watch('open', value => { if(value) $nextTick(() => $refs.input.focus()) })">
+        x-init="$watch('open', value => { if(value) $nextTick(() => $refs.input.focus()) })"
+        wire:keydown.enter="removeCode">
 
         <div x-show="open" x-transition:enter="transition ease-out duration-500" x-transition:enter-start="opacity-0"
             x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-400"
@@ -34,7 +35,7 @@
                         <x-buttons.button type="outline" action="$set('openRemoveModal', false)" label="Cancel" />
 
 
-                        <x-buttons.button type="danger-outline" label="Remove" action="removeCode" />
+                        <x-buttons.button type="danger-outline" label="Remove" action="removeCode()" />
 
                     </div>
                 </div>

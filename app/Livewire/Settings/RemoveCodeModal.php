@@ -53,11 +53,13 @@ class RemoveCodeModal extends Component
 
             $data->delete();
 
-            $this->dispatch('remove-success');
+            $this->dispatch('showAlert', type: 'success', message: 'Deletion code successfully removed!');
 
             $this->openRemoveModal = false;
 
             $this->reset();
+
+            $this->dispatch('refreshPage');
         }
     }
 

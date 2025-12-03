@@ -55,8 +55,6 @@ class EditModal extends Component
             $this->status = $project->status;
             $this->dateStartIfEmpty = $dateStartIfEmpty;
             $this->openEditModal = true;
-
-            $this->dispatch('auto-focus');
         }
     }
 

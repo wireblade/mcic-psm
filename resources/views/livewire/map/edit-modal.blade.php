@@ -1,7 +1,6 @@
-<div wire:ignore.self x-data="{ open: @entangle('openEditModal'), focusInput() { 
-        $nextTick(() => this.$refs.firstInput.focus()) 
-    }}" x-show="open" x-on:auto-focus.window="focusInput()" wire:keydown.enter="updateProject"
-    @keyup.escape.window="open = false">
+<div x-data="{ open: @entangle('openEditModal') }" @keyup.escape.window="open = false"
+    x-init="$watch('open', value => { if(value) $nextTick(() => $refs.focusInput.focus()) })"
+    wire:keydown.enter="updateProject()">
 
     <div x-show="open" x-transition:enter="transition ease-out duration-500" x-transition:enter-start="opacity-0"
         x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-400"
@@ -18,7 +17,7 @@
             <h2 class="text-xl font-bold mb-4">Update Project</h2>
             <div class="space-y-3">
 
-                <x-inputs.input label="Project Name" name="name" autofocus="firstInput" />
+                <x-inputs.input label="Project Name" name="name" autofocus="focusInput" />
 
                 <x-inputs.input label="Latitude" name="latitude" />
 
