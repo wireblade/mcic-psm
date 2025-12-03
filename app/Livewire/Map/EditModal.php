@@ -105,9 +105,7 @@ class EditModal extends Component
 
             Project::find($this->projectEditId)->update($data);
 
-            $flashMessage = 'Project "' . $this->name . '" has been updated successfully.';
-
-            $this->dispatch('showAlert', type: 'success', message: $flashMessage);
+            $this->dispatch('showAlert', type: 'success', message: 'Project: ' . $this->name . ' has been updated successfully.');
 
             $this->openEditModal = false;
 
