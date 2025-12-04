@@ -16,10 +16,15 @@
             <p>Are you sure you want to finish <b>{{$name}}</b>?</p>
             <br>
 
-            <div class="mt-1 flex justify-end space-x-2">
+            <x-inputs.input type="date" label="Project Completed Date" name="end" autofocus="focusInput"
+                placeholder="Enter deletion code" />
+
+            <div class="mt-4 flex justify-end space-x-2">
+
                 <x-buttons.button action="$set('openFinishModal', false)" type="outline" label="Cancel" />
 
                 <x-buttons.button action="projectFinish" type="success-outline" label="Finish" />
+
             </div>
         </div>
     </div>

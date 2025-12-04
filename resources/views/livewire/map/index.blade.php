@@ -39,12 +39,32 @@
                     </td>
 
                     <td class="border-b border-gray-200 dark:border-gray-700 text-center">
+
                         <x-buttons.button-icon action="openEditModal" id="{{$project->id}}" icon="fa fa-edit"
                             label="Edit" />
-                        <x-buttons.button-icon action="openFinishModal" id="{{$project->id}}" icon="fa fa-circle-check"
-                            label="Finish" color="green" />
-                        <x-buttons.button-icon action="openDeleteModal" id="{{$project->id}}" icon="fa fa-trash"
-                            color="red" label="Delete" />
+
+                        <!-- dropdown: prevent Livewire from re-rendering this block and hide until Alpine ready -->
+
+                        <div wire:ignore.self x-data="{ open: false }" x-cloak class="relative inline-block">
+                            <button @click="open = !open"
+                                class="p-1 rounded border dark:border-gray-600 text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400"
+                                title="More" aria-haspopup="true" :aria-expanded="open">
+                                <i class="fa fa-ellipsis-v"></i>
+                            </button>
+                            <div x-show="open" @click.outside="open = false" x-transition
+                                class="fixed right-28 mt-2 w-40 bg-white dark:border-gray-500 dark:bg-gray-800  rounded-md shadow-md shadow-black z-50 overflow-hidden ">
+
+                                <x-buttons.drop-down-button action="openFinishModal" icon="fa fa-circle-check"
+                                    type="success" :id="$project->id" label="Finish" />
+
+                                <div class="bg-gray-200 p-0.5 dark:bg-gray-700">
+                                    {{-- DIVIDER --}}
+                                </div>
+
+                                <x-buttons.drop-down-button action="openDeleteModal" icon="fa fa-trash" type="danger"
+                                    :id="$project->id" label="Delete" />
+                            </div>
+                        </div>
                     </td>
                 </tr>
                 @empty

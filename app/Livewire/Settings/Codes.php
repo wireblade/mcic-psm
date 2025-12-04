@@ -36,7 +36,7 @@ class Codes extends Component
 
         Code::create($validated);
 
-        session()->flash('success', 'Code successfully registered');
+        $this->dispatch('showAlert', type: 'success', message: 'Deletion code saved successfully.');
 
         $this->reset();
     }

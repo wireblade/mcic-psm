@@ -42,7 +42,7 @@ class Index extends Component
 
     public function render()
     {
-        $projects = Project::orderBy('id', 'desc')->where('status', '0')->paginate(20);
+        $projects = Project::orderBy('id', 'desc')->where('status', '0')->paginate(5);
 
         return view('livewire.map.index', [
             'projects' => $projects,

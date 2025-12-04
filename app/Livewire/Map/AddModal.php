@@ -40,6 +40,8 @@ class AddModal extends Component
             'dateStart' => 'nullable|date',
         ]);
 
+        $data['dateStart'] = $this->dateStart === '' ? null : $this->dateStart;
+
         Project::create($data);
 
         $flashMessage = 'Project "' . $this->name . '" has been added successfully.';

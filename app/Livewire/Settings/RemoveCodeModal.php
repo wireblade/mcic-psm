@@ -18,16 +18,8 @@ class RemoveCodeModal extends Component
 
     public $confirm;
 
-    protected $rules = [
-        'confirm' => 'required',
-    ];
-
     protected $messages = [
-        'confirm.required' => 'please confirm :attribute',
-    ];
-
-    protected $validationAttributes = [
-        'confirm' => 'code', // This will replace :attribute in error messages
+        'confirm.required' => 'please confirm deletion code',
     ];
 
     #[On('open-remove-modal')]
@@ -53,9 +45,9 @@ class RemoveCodeModal extends Component
 
             $data->delete();
 
-            $this->dispatch('showAlert', type: 'success', message: 'Deletion code successfully removed!');
-
             $this->openRemoveModal = false;
+
+            $this->dispatch('showAlert', type: 'success', message: 'Deletion code successfully removed!');
 
             $this->reset();
 

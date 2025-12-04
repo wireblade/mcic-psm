@@ -39,7 +39,8 @@ class EditModal extends Component
     {
         $project = Project::findOrFail($id);
 
-        $dateStartIfEmpty = $project->dateStart;
+        // keep original value for warning if needed
+        $this->dateStartIfEmpty = $project->dateStart;
 
         if ($project) {
             $this->projectEditId = $id;
@@ -53,7 +54,6 @@ class EditModal extends Component
             $this->dateEnd = $project->dateEnd ? $project->dateEnd->format('Y-m-d') : null;;
 
             $this->status = $project->status;
-            $this->dateStartIfEmpty = $dateStartIfEmpty;
             $this->openEditModal = true;
         }
     }
@@ -62,52 +62,82 @@ class EditModal extends Component
     {
         $project = Project::findOrFail($this->projectEditId);
 
+        // normalize numeric comparison to avoid false positives
+        $latChange = ((string) $this->latitude) !== ((string)$project->latitude);
+        $longChange = ((string) $this->longitude) !== ((string)$project->longitude);
+
         if (
             $this->name === $project->name &&
-            $this->latitude === $project->latitude &&
+            ! $latChange &&
+            ! $longChange &&
             $this->longitude === $project->longitude &&
             $this->description === $project->description &&
             $this->dateStart === ($project->dateStart?->format('Y-m-d')) &&
             $this->dateEnd === ($project->dateEnd?->format('Y-m-d'))
         ) {
-
-            $flashMessage = 'No changes were made to Project:' . ' ' . $this->name;
-
-            $this->dispatch('showAlert', type: 'error', message: $flashMessage);
-
+            $this->dispatch('showAlert', type: 'error', message: 'No changes were made to Project:' . ' ' . $this->name);
             $this->openEditModal = false;
+            return;
         } else {
-
             $data = $this->Validate([
-                'name' => 'required|string|max:255|' . Rule::unique('projects', 'name')->ignore($this->projectEditId),
-                'latitude' => 'required|numeric|between:-90,90',
-                'description' => 'nullable|string|max:1000',
-                'longitude' => 'required|numeric|between:-180,180',
+                'name' => [
+                    'required',
+                    'string',
+                    'max:255',
+                    Rule::unique('projects', 'name')->ignore($this->projectEditId)
+                ],
+                'latitude' => [
+                    'required',
+                    'numeric',
+                    'between:-90,90'
+                ],
+                'description' => [
+                    'nullable',
+                    'string',
+                    'max:1000'
+                ],
+                'longitude' => [
+                    'required',
+                    'numeric',
+                    'between:-180,180'
+                ],
                 'dateStart' => [
                     'nullable',
                     'date',
                     function ($attribute, $value, $fail) {
-                        if (!empty($this->dateEnd)) {
-                            $startDate = Carbon::parse($value);
-                            $endDate = Carbon::parse($this->dateEnd);
+                        // only validate if both dates are present
+                        if (empty($value) || empty($this->dateEnd)) {
+                            return;
+                        }
+                        $startDate = Carbon::parse($value);
+                        $endDate = Carbon::parse($this->dateEnd);
 
-                            if ($startDate->greaterThan($endDate)) {
-                                $fail('Start date must be the same as or before than the end date.');
-                            }
+                        if ($startDate->greaterThan($endDate)) {
+                            $fail('Start date must be the same as or before than the end date.');
                         }
                     }
                 ],
-                'dateEnd' => 'nullable|date|after_or_equal:dateStart',
+                'dateEnd' => [
+                    'nullable',
+                    'date',
+                    'after_or_equal:dateStart'
+                ],
 
             ], $this->messages);
 
+            // sanitize empty strings to null for date columns    
+            $data['dateStart'] = $this->dateStart === '' ? null : $this->dateStart;
+            $data['dateEnd'] = $this->dateEnd === '' ? null : $this->dateEnd;
+
+            // update via loaded modal instance
             Project::find($this->projectEditId)->update($data);
 
             $this->dispatch('showAlert', type: 'success', message: 'Project: ' . $this->name . ' has been updated successfully.');
 
             $this->openEditModal = false;
 
-            $this->reset();
+            // reset only fields you want
+            $this->reset(['name', 'latitude', 'longitude', 'description', 'dateStart', 'dateEnd', 'projectEditId', 'status']);
 
             // Refresh the table
             $this->dispatch('refreshTable');
