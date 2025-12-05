@@ -45,26 +45,34 @@
 
                         <!-- dropdown: prevent Livewire from re-rendering this block and hide until Alpine ready -->
 
-                        <div wire:ignore.self x-data="{ open: false }" x-cloak class="relative inline-block">
-                            <button @click="open = !open"
-                                class="p-1 rounded border dark:border-gray-600 text-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-400"
-                                title="More" aria-haspopup="true" :aria-expanded="open">
-                                <i class="fa fa-ellipsis-v"></i>
-                            </button>
-                            <div x-show="open" @click.outside="open = false" x-transition
-                                class="fixed right-28 mt-2 w-40 bg-white dark:border-gray-500 dark:bg-gray-800  rounded-md shadow-md shadow-black z-50 overflow-hidden ">
+                        <div wire:ignore.self x-data="{ open: false, pos: { top: 0, left: 0 } }" x-cloak
+                            class="inline-block">
 
-                                <x-buttons.drop-down-button action="openFinishModal" icon="fa fa-circle-check"
-                                    type="success" :id="$project->id" label="Finish" />
+                            <!-- BUTTON -->
+                            <x-buttons.button @click="
+                                const r = $el.getBoundingClientRect();
+                                pos.top = r.bottom + window.scrollY + 6;
+                                pos.left = r.left + window.scrollX - 145;
+                                open = !open;" type="menu" px="" py="1" p="1" icon="fa fa-ellipsis-v" label="More" />
 
-                                <div class="bg-gray-200 p-0.5 dark:bg-gray-700">
-                                    {{-- DIVIDER --}}
+                            <!-- DROPDOWN TELEPORTED OUTSIDE TABLE -->
+                            <template x-teleport="body">
+                                <div x-show="open" @click.outside="open = false" x-transition
+                                    class="w-40 bg-white absolute mr-30 dark:border-gray-500 dark:bg-gray-800 rounded-md shadow-md shadow-black z-50 overflow-hidden"
+                                    :style="`top: ${pos.top}px; left: ${pos.left}px;`">
+
+                                    <x-buttons.drop-down-button action="openFinishModal" icon="fa fa-circle-check"
+                                        type="success" :id="$project->id" label="Finish" />
+
+                                    <div class="bg-gray-200 p-0.5 dark:bg-gray-700"></div>
+
+                                    <x-buttons.drop-down-button action="openDeleteModal" icon="fa fa-trash"
+                                        type="danger" :id="$project->id" label="Delete" />
                                 </div>
+                            </template>
 
-                                <x-buttons.drop-down-button action="openDeleteModal" icon="fa fa-trash" type="danger"
-                                    :id="$project->id" label="Delete" />
-                            </div>
                         </div>
+
                     </td>
                 </tr>
                 @empty
@@ -79,6 +87,7 @@
             </tbody>
         </table>
     </div>
+
 
     <div class="mt-4">
         {{ $projects->links() }}

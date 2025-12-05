@@ -1,5 +1,6 @@
 @props([
 'type' => 'primary',
+'click' => 'null',
 'label' => '',
 'id' => '',
 'icon' => '',
@@ -8,30 +9,46 @@
 'py' => '1',
 'mt' => '',
 'm' => '',
+'p' => '',
+'ml' => '',
 ])
 
 @php
 $styles = [
-'default' => 'bg-gray-500 dark:bg-gray-800 text-white hover:bg-gray-700 dark:hover:bg-gray-900',
-'primary' => 'bg-blue-500 text-white hover:bg-blue-700',
-'danger' => 'bg-red-500 text-white hover:bg-red-700',
-'success' => 'bg-green-500 text-white hover:bg-green-700',
+'default' => 'rounded-md bg-gray-500 dark:bg-gray-800 text-white hover:bg-gray-700 dark:hover:bg-gray-900',
+'primary' => 'rounded-md bg-blue-500 text-white hover:bg-blue-700',
+'danger' => 'rounded-md bg-red-500 text-white hover:bg-red-700',
+'success' => 'rounded-md bg-green-500 text-white hover:bg-green-700',
 
-'outline' => 'border border-gray-600 text-gray-700 hover:bg-gray-200 dark:bg-gray- dark:border-gray-
+'outline' => 'rounded-md border border-gray-600 text-gray-700 hover:bg-gray-200 dark:bg-gray-800
 dark:text-gray-600
 dark:hover:bg-gray-900 dark:hover:border-gray-900 dark:text-white',
 
-'danger-outline' => 'border border-red-700 text-red-500 hover:bg-red-700 hover:text-white',
+'menu' => 'rounded-xs border border-gray-300 text-gray-600 hover:border-gray-600 hover:bg-gray-600 dark:bg-gray-800
+dark:border-gray-600
+dark:text-gray-500 dark:hover:bg-gray-600 dark:hover:border-gray-500 hover:text-white',
 
-'primary-outline' => 'border border-blue-700 text-blue-500 hover:bg-blue-700 hover:text-white',
+'danger-outline' => 'rounded-md border border-red-700 text-red-500 hover:bg-red-700 hover:text-white',
 
-'success-outline' => 'border border-green-700 text-green-500 hover:bg-green-700 hover:text-white',
+'primary-outline' => 'rounded-md border border-blue-700 text-blue-500 hover:bg-blue-700 hover:text-white',
+
+'success-outline' => 'rounded-md border border-green-700 text-green-500 hover:bg-green-700 hover:text-white',
 ];
 
 $class = $styles[$type] ?? $styles['primary'];
 @endphp
 
-<button @if($action) wire:click="{{ $action }} @if($id)({{$id}})@endif" @endif
-    class="px-{{$px}} m-{{$m}} py-{{$py}} mt-{{$mt}} rounded-md shadow-gray-400 dark:shadow-black shadow-sm transition duration-200 {{ $class }}">
-    <i class="{{ $icon }}"></i> {{ $label }}
-</button>
+
+<div x-data="{ tooltip: false }" class="relative inline-block">
+
+    <button @if($action) wire:click="{{ $action }} @if($id)({{$id}})@endif" @endif {{$attributes->merge(['class'=>
+        "p-{$p} px-{$px} m-{$m} py-{$py} mt-{$mt} ml-{$ml} shadow-gray-400 dark:shadow-black shadow-sm
+        transition duration-200 cursor-pointer {$class}"])}} @mouseenter="tooltip = true" @mouseleave="tooltip = false">
+        <i class="{{ $icon }}"></i> @if($label === 'More') @else {{$label}} @endif
+    </button>
+
+    <div x-show="tooltip" x-transition
+        class="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 bg-gray-700 dark:bg-black text-white text-xs rounded px-2 py-1 whitespace-nowrap">
+        {{$label}}
+    </div>
+</div>

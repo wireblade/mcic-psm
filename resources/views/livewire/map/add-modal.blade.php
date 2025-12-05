@@ -15,21 +15,18 @@
             class="bg-white p-6 rounded-lg w-full max-w-lg dark:bg-gray-800">
 
             <h2 class="text-xl font-bold mb-4">Add Project</h2>
-            <div class="fakefiller-allow">
-                <div class="space-y-3">
+            <div class="space-y-3">
 
-                    <x-inputs.input label="Project ID" name="name" autofocus="focusInput"
-                        placeholder="Enter Project ID" />
+                <x-inputs.input label="Project ID" name="name" autofocus="focusInput" placeholder="Enter Project ID" />
 
-                    <x-inputs.input label="Latitude" name="latitude" placeholder="Enter Laitude" />
+                <x-inputs.input label="Latitude" name="latitude" placeholder="Enter Laitude" />
 
-                    <x-inputs.input label="longitude" name="longitude" placeholder="Enter longitude" />
+                <x-inputs.input label="longitude" name="longitude" placeholder="Enter longitude" />
 
-                    <x-inputs.input type="date" label="Date Start" name="dateStart" />
+                <x-inputs.input type="date" label="Date Start" name="dateStart" />
 
-                    <x-inputs.textarea label="Description" name="description" placeholder="Enter Description" />
+                <x-inputs.textarea label="Description" name="description" placeholder="Enter Description" />
 
-                </div>
             </div>
 
             <div class="mt-5 flex justify-end gap-3">

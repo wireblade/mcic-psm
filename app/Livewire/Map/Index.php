@@ -10,6 +10,7 @@ use Carbon\Carbon;
 
 class Index extends Component
 {
+
     use WithPagination;
 
     public string $title = 'Active Projects';

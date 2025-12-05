@@ -19,7 +19,8 @@
 
                 <div class="space-y-3">
 
-                    <x-inputs.input label="Please confirm deletion code" autofocus="focusInput" name="confirm" />
+                    <x-inputs.input type="password" label="Please confirm deletion code" autofocus="focusInput"
+                        name="confirm" />
 
                     <div class="mt-4 flex justify-end space-x-2">
 
