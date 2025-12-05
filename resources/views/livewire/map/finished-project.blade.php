@@ -40,11 +40,7 @@
                                 icon="fa fa-ellipsis-v" label="More" />
                             <div x-show="open" @click.outside="open = false" x-transition
                                 class="fixed right-28 mt-2 w-40 bg-white dark:border-gray-500 dark:bg-gray-800  rounded-md shadow-md shadow-black z-50 overflow-hidden ">
-                                <x-buttons.drop-down-button action="openFinishModal" icon="fa fa-circle-check"
-                                    type="success" :id="$project->id" label="Finish" />
-                                <div class="bg-gray-200 p-0.5 dark:bg-gray-700">
-                                    {{-- DIVIDER --}}
-                                </div>
+
                                 <x-buttons.drop-down-button action="openDeleteModal" icon="fa fa-trash" type="danger"
                                     :id="$project->id" label="Delete" />
                             </div>

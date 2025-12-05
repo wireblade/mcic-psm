@@ -13,7 +13,7 @@
         <i class="{{$icon}}"></i>
     </button>
 
-    <div x-show="open" x-transition
+    <div x-show="open" x-transition x-cloak
         class="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 bg-black text-white text-xs rounded px-2 py-1">
         {{$label}}
     </div>

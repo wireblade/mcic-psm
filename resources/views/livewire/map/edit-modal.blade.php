@@ -1,4 +1,4 @@
-<div x-data="{ open: @entangle('openEditModal') }" @keyup.escape.window="open = false"
+<div x-data="{ open: @entangle('openEditModal') }" x-cloak @keyup.escape.window="open = false"
     x-init="$watch('open', value => { if(value) $nextTick(() => $refs.focusInput.focus()) })"
     wire:keydown.enter="updateProject()">
 

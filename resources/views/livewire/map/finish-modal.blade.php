@@ -1,4 +1,4 @@
-<div x-data="{ open: @entangle('openFinishModal') }" @keyup.escape.window="open = false">
+<div x-data="{ open: @entangle('openFinishModal') }" x-cloak @keyup.escape.window="open = false">
 
     <div x-show="open" x-transition:enter="transition ease-out duration-500" x-transition:enter-start="opacity-0"
         x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-400"
