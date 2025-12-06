@@ -50,5 +50,6 @@ $class = $styles[$type] ?? $styles['primary'];
     <div x-show="tooltip" x-transition x-cloak
         class="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 bg-gray-700 dark:bg-black text-white text-xs rounded px-2 py-1 whitespace-nowrap">
         {{$label}}
+
     </div>
 </div>

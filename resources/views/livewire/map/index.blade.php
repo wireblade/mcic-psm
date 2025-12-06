@@ -31,7 +31,14 @@
                     <td class="px-6 py-3 border-b border-gray-200 dark:border-gray-700">{{$project->name}}</td>
                     <td class="px-6 py-3 border-b border-gray-200 dark:border-gray-700">{{$project->latitude}}</td>
                     <td class="px-6 py-3 border-b border-gray-200 dark:border-gray-700">{{$project->longitude}}</td>
-                    <td class="px-6 py-3 border-b border-gray-200 dark:border-gray-700">{{$project->description}}
+                    <td class="px-6 py-3 border-b border-gray-200 dark:border-gray-700">
+                        @if(strlen($project['description']) > 50)
+                        <button wire:click="openModal('{{ addslashes($project['description']) }}')"
+                            class="text-blue-600 underline ml-2">
+                            Read more
+                        </button>
+                        @endif
+
                     </td>
 
                     <td class="px-6 py-3 border-b border-gray-200 dark:border-gray-700">
@@ -40,8 +47,8 @@
 
                     <td class="border-b border-gray-200 dark:border-gray-700 text-center">
 
-                        <x-buttons.button-icon action="openEditModal" id="{{$project->id}}" icon="fa fa-edit"
-                            label="Edit" />
+                        <x-buttons.button-icon type="default" action="openEditModal" id="{{$project->id}}"
+                            icon="fa fa-edit" label="Edit" />
 
                         <!-- dropdown: prevent Livewire from re-rendering this block and hide until Alpine ready -->
 
