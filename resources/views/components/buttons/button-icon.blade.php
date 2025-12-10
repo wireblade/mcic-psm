@@ -13,6 +13,7 @@ $styles = [
 'primary' => 'rounded-md border-blue-500 text-blue-500 hover:bg-blue-700 hover:text-white',
 'danger' => 'rounded-md bg-red-500 text-white hover:bg-red-700',
 'success' => 'rounded-md bg-green-500 text-white hover:bg-green-700',
+'menu' => 'border-gray-300 text-gray-600 hover:border-gray-600 hover:bg-gray-600 dark:bg-gray-800',
 ];
 
 $class = $styles[$type] ?? $styles['primary'];
@@ -28,7 +29,7 @@ $class = $styles[$type] ?? $styles['primary'];
     </button>
 
     <div x-show="open" x-transition x-cloak
-        class="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 bg-black text-white text-xs rounded px-2 py-1">
+        class="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 bg-gray-700 dark:bg-black text-white text-xs rounded px-2 py-1">
         {{$label}}
     </div>
 </div>

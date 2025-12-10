@@ -15,6 +15,8 @@ class Index extends Component
 
     public string $title = 'Active Projects';
 
+    public $search = '';
+
     #[On('refreshTable')]
     public function refreshTable()
     {
@@ -46,9 +48,22 @@ class Index extends Component
         $this->dispatch('open-description-modal', id: $id);
     }
 
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
     public function render()
     {
-        $projects = Project::orderBy('id', 'desc')->where('status', '0')->paginate(5);
+        // $projects = Project::orderBy('id', 'desc')->where('status', '0')->paginate(5);
+        $projects = Project::selectRaw("id, name, latitude, longitude, LEFT(description, 51) AS description, dateStart")
+            ->where('status', 0)
+            ->where(function ($query) {
+                $query->where('name', 'like', '%' . $this->search . '%')
+                    ->orWhereRaw("DATE_FORMAT(dateStart, '%b %d %Y') LIKE ?", ['%' . $this->search . '%']);
+            })
+            ->orderBy('dateStart', 'ASC')
+            ->paginate(10);
 
         return view('livewire.map.index', [
             'projects' => $projects,

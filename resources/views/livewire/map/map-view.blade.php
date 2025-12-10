@@ -61,12 +61,12 @@
 
         // PIN
         const pin = document.createElement('div');
-        pin.style.width = '7px';
-        pin.style.height = '7px';
+        pin.style.width = '5px';
+        pin.style.height = '5px';
         pin.style.backgroundColor = '#E10600';
-        pin.style.borderRadius = '50%';
+        pin.style.borderRadius = '100%';
         pin.style.border = '1px solid white';
-        pin.style.boxShadow = '0 0 4px #000';
+        pin.style.boxShadow = '0 0 3px #000';
         pin.style.position = 'absolute';
         pin.style.bottom = '0';
         pin.style.left = '50%';

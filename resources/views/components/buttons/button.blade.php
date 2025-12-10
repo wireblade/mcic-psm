@@ -11,6 +11,7 @@
 'm' => '',
 'p' => '',
 'ml' => '',
+'popup' => '',
 ])
 
 @php
@@ -19,6 +20,7 @@ $styles = [
 'primary' => 'rounded-md bg-blue-500 text-white hover:bg-blue-700',
 'danger' => 'rounded-md bg-red-500 text-white hover:bg-red-700',
 'success' => 'rounded-md bg-green-500 text-white hover:bg-green-700',
+'empty' => 'border-transparent bg-transparent shadow-transparent',
 
 'outline' => 'rounded-md border border-gray-600 text-gray-700 hover:bg-gray-200 dark:bg-gray-800
 dark:text-gray-600
@@ -39,17 +41,18 @@ $class = $styles[$type] ?? $styles['primary'];
 @endphp
 
 
-<div x-data="{ tooltip: false }" class="relative inline-block">
+@if($popup) <div x-data="{ tooltip: false }" class="relative inline-block"> @endif
 
     <button @if($action) wire:click="{{ $action }} @if($id)({{$id}})@endif" @endif {{$attributes->merge(['class'=>
-        "p-{$p} px-{$px} m-{$m} py-{$py} mt-{$mt} ml-{$ml} shadow-gray-400 dark:shadow-black shadow-sm
+        "p-{$p} px-{$px} m-{$m} py-{$py} mt-{$mt} ml-{$ml} dark:shadow-black shadow-sm
         transition duration-200 cursor-pointer {$class}"])}} @mouseenter="tooltip = true" @mouseleave="tooltip = false">
         <i class="{{ $icon }}"></i> @if($label === 'More') @else {{$label}} @endif
     </button>
 
-    <div x-show="tooltip" x-transition x-cloak
+    @if($popup) <div x-show="tooltip" x-transition x-cloak
         class="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 bg-gray-700 dark:bg-black text-white text-xs rounded px-2 py-1 whitespace-nowrap">
-        {{$label}}
-
+        {{$popup}}
     </div>
 </div>
+
+@endif

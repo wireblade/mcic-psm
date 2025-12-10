@@ -17,16 +17,13 @@ class ViewDescription extends Component
     #[On('open-description-modal')]
     public function openDescriptionModal($id)
     {
+        $project = Project::select('id', 'name', 'description')->findOrFail($id);
 
-        $project = Project::findOrFail($id);
+        $this->descriptionId = $project->id;
+        $this->description = $project->description;
+        $this->name = $project->name;
 
-        if ($project) {
-            $this->descriptionId = $project->id;
-
-            $this->description = $project->description;
-            $this->name = $project->name;
-            $this->open = true;
-        }
+        $this->open = true;
     }
 
     public function render()

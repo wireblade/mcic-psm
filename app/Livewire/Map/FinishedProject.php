@@ -38,7 +38,9 @@ class FinishedProject extends Component
 
     public function render()
     {
-        $projects = Project::orderBy('id', 'desc')->where('status', '1')->paginate(5);
+        // $projects = Project::orderBy('id', 'desc')->where('status', '1')->paginate(5);
+
+        $projects = Project::selectRaw("id, name, latitude, longitude, LEFT(description, 51) AS description, dateStart, dateEnd")->where('status', '1')->paginate(10);
 
         return view('livewire.map.finished-project', [
             'projects' => $projects,

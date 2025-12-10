@@ -6,7 +6,17 @@
         <h1 class="text-2xl font-bold">{{$title}}</h1>
     </div>
 
-    <x-buttons.button action="openAddModal" type="default" label="Add Project" icon="fa fa-plus-circle" />
+    <div class="flex justify-between items-center mb-4">
+        <!-- Left: Title and Add button -->
+        <div class="flex items-center space-x-2">
+            <x-buttons.button action="openAddModal" type="default" label="Add Project" icon="fa fa-plus-circle" />
+        </div>
+
+        <!-- Right: Search input -->
+        <div class="w-72">
+            <x-inputs.search placeholder="Search Projects" live="search" />
+        </div>
+    </div>
 
     <div class="overflow-x-auto rounded-lg shadow-md mt-5 dark:shadow-black">
         <table class="min-w-full text-sm text-left bg-white dark:bg-gray-800 ">
@@ -32,14 +42,12 @@
                     <td class="px-6 py-3 border-b border-gray-200 dark:border-gray-700">{{$project->latitude}}</td>
                     <td class="px-6 py-3 border-b border-gray-200 dark:border-gray-700">{{$project->longitude}}</td>
                     <td class="px-6 py-3 border-b border-gray-200 dark:border-gray-700">
-                        @if(empty($project->description))
-
-                        @else
+                        @if(!empty($project->description))
                         {{ Str::limit($project->description, 50) }}
-                        <button wire:click="viewDescription({{ $project->id }})"
-                            class="text-blue-500 hover:text-blue-700 cursor-pointer">
-                            🔍
-                        </button>
+                        @if(Str::length($project->description) > 50)
+                        <x-buttons.button action="viewDescription" id="{{$project->id}}" popup="View Description" px="1"
+                            type="empty" label="🔍" />
+                        @endif
                         @endif
                     </td>
 
@@ -49,7 +57,7 @@
 
                     <td class="border-b border-gray-200 dark:border-gray-700 text-center">
 
-                        <x-buttons.button-icon type="default" action="openEditModal" id="{{$project->id}}"
+                        <x-buttons.button-icon type="menu" action="openEditModal" id="{{$project->id}}"
                             icon="fa fa-edit" label="Edit" />
 
                         <!-- dropdown: prevent Livewire from re-rendering this block and hide until Alpine ready -->
@@ -62,7 +70,7 @@
                                 const r = $el.getBoundingClientRect();
                                 pos.top = r.bottom + window.scrollY + 6;
                                 pos.left = r.left + window.scrollX - 145;
-                                open = !open;" type="menu" px="" py="1" p="1" icon="fa fa-ellipsis-v" label="More" />
+                                open = !open;" type="menu" px="" py="1" p="1" icon="fa fa-ellipsis-v" popup="More" />
 
                             <!-- DROPDOWN TELEPORTED OUTSIDE TABLE -->
                             <template x-teleport="body">

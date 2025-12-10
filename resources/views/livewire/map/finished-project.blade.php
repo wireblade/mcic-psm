@@ -5,12 +5,14 @@
         <h1 class="text-2xl font-bold">{{$title}}</h1>
     </div>
 
+    <x-inputs.search placeholder="Search Projects" live="search" />
+
     <div class="overflow-x-auto rounded-lg shadow-md dark:shadow-black mt-5">
         <table class="min-w-full text-sm text-left bg-white dark:bg-gray-800 ">
             <thead class="bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 uppercase text-xs">
                 <tr>
                     <th class="px-6 py-3 border-b border-gray-300 dark:border-gray-600">No</th>
-                    <th class="px-6 py-3 border-b border-gray-300 dark:border-gray-600">Project Name</th>
+                    <th class="px-6 py-3 border-b border-gray-300 dark:border-gray-600">Project ID</th>
                     <th class="px-6 py-3 border-b border-gray-300 dark:border-gray-600">Latitude</th>
                     <th class="px-6 py-3 border-b border-gray-300 dark:border-gray-600">Longitude</th>
                     <th class="px-6 py-3 border-b border-gray-300 dark:border-gray-600">Description</th>
@@ -29,14 +31,12 @@
                     <td class="px-6 py-3 border-b border-gray-200 dark:border-gray-700">{{$project->latitude}}</td>
                     <td class="px-6 py-3 border-b border-gray-200 dark:border-gray-700">{{$project->longitude}}</td>
                     <td class="px-6 py-3 border-b border-gray-200 dark:border-gray-700">
-                        @if(empty($project->description))
-
-                        @else
+                        @if(!empty($project->description))
                         {{ Str::limit($project->description, 50) }}
-                        <button wire:click="viewDescription({{ $project->id }})"
-                            class="text-blue-500 hover:text-blue-700 cursor-pointer">
-                            🔍
-                        </button>
+                        @if(Str::length($project->description) > 50)
+                        <x-buttons.button action="viewDescription" id="{{$project->id}}" popup="View Description" px="1"
+                            type="empty" label="🔍" />
+                        @endif
                         @endif
                     </td>
                     <td class="px-6 py-3 border-b border-gray-200 dark:border-gray-700">
