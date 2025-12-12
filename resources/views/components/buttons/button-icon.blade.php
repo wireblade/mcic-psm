@@ -24,7 +24,7 @@ $class = $styles[$type] ?? $styles['primary'];
 
 
 <div x-data="{ open: false }" class="relative inline-block p-1">
-    <button @if($action) wire:click="{{$action}}@if($id)({{$id}})@endif" @endif {{$attributes->merge(['class' =>
+    <button x-cloak @if($action) wire:click="{{$action}}@if($id)({{$id}})@endif" @endif {{$attributes->merge(['class' =>
         "px-{$px}
         py-1 rounded cursor-pointer transition duration-200 {$class}"
         ])}} @mouseenter="open = true" @mouseleave="open = false">

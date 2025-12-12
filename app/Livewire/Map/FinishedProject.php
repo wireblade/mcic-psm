@@ -40,7 +40,7 @@ class FinishedProject extends Component
     {
         // $projects = Project::orderBy('id', 'desc')->where('status', '1')->paginate(5);
 
-        $projects = Project::selectRaw("id, name, latitude, longitude, LEFT(description, 51) AS description, dateStart, dateEnd")->where('status', '1')->paginate(10);
+        $projects = Project::selectRaw("id, name, latitude, longitude, LEFT(description, 51) AS description, dateStart, dateEnd")->where('status', '1')->paginate(20);
 
         return view('livewire.map.finished-project', [
             'projects' => $projects,

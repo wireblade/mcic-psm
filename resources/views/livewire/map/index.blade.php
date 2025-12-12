@@ -1,6 +1,6 @@
 @section('title', config('app.name').' |'.' '.$title)
 
-<section>
+<div>
 
     <div class="flex justify-between item-center mb-4">
         <h1 class="text-2xl font-bold">{{$title}}</h1>
@@ -16,6 +16,8 @@
         <div class="w-72">
             <x-inputs.search placeholder="Search Projects" live="search" />
         </div>
+
+
     </div>
 
     <div class="overflow-x-auto rounded-lg shadow-md mt-5 dark:shadow-black">
@@ -62,7 +64,7 @@
 
                         <!-- dropdown: prevent Livewire from re-rendering this block and hide until Alpine ready -->
 
-                        <div wire:ignore.self x-data="{ open: false, pos: { top: 0, left: 0 } }" x-cloak
+                        {{-- <div wire:ignore.self x-data="{ open: false, pos: { top: 0, left: 0 } }"
                             class="inline-block">
 
                             <!-- BUTTON -->
@@ -88,7 +90,11 @@
                                 </div>
                             </template>
 
-                        </div>
+                        </div> --}}
+
+                        {{--
+                        <x-buttons.drop-down-menu finishId="{{$project->id}}" deleteId="{{$project-id}}" /> --}}
+
                     </td>
                 </tr>
 
@@ -107,17 +113,7 @@
     </div>
 
     <div class="mt-4">
-        {{ $projects->links() }}
+        {{ $projects->links(data: ['scrollTo' => false]) }}
     </div>
 
-    <livewire:map.view-description />
-
-    <livewire:map.edit-modal />
-
-    <livewire:map.add-modal />
-
-    <livewire:map.finish-modal />
-
-    <livewire:map.delete-modal />
-
-</section>
+</div>

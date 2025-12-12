@@ -22,7 +22,7 @@ class ProjectFactory extends Factory
             'latitude' => $this->faker->randomFloat(6, 5.0, 19.0),    // 6 decimal places
             'longitude' => $this->faker->randomFloat(6, 115.0, 126.0),
             'dateStart' => $this->faker->date(),
-            'status' => '0',
+            'status' => $this->faker->numberBetween(0, 1),
         ];
     }
 }

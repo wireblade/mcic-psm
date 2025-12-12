@@ -44,8 +44,7 @@ $class = $styles[$type] ?? $styles['primary'];
 
 @if($popup) <div x-data="{ tooltip: false }" class="relative inline-block"> @endif
 
-    <button x-cloak @if($action) wire:click="{{ $action }} @if($id)({{$id}})@endif" @endif
-        {{$attributes->merge(['class'=>
+    <button @if($action) wire:click="{{ $action }} @if($id)({{$id}})@endif" @endif {{$attributes->merge(['class'=>
         "p-{$p} px-{$px} m-{$m} py-{$py} mt-{$mt} ml-{$ml} dark:shadow-black shadow-md
         transition duration-400 cursor-pointer border {$class}"])}} @mouseenter="tooltip = true" @mouseleave="tooltip =
         false">

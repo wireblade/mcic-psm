@@ -99,13 +99,17 @@
         </flux:dropdown>
     </flux:header>
 
-    <livewire:flash-alert />
-
     {{ $slot }}
 
     @fluxScripts
 
-</body>
+    <livewire:flash-alert />
+    <livewire:map.view-description />
+    <livewire:map.edit-modal />
+    <livewire:map.add-modal />
+    <livewire:map.finish-modal />
+    <livewire:map.delete-modal />
 
+</body>
 
 </html>

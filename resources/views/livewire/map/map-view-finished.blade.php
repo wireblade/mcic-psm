@@ -55,8 +55,8 @@
 
         // PIN
         const pin = document.createElement('div');
-        pin.style.width = '7px';
-        pin.style.height = '7px';
+        pin.style.width = '5px';
+        pin.style.height = '5px';
         pin.style.backgroundColor = '#6BF216';
         pin.style.borderRadius = '50%';
         pin.style.border = '1px solid white';

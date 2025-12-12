@@ -91,11 +91,9 @@
     </div>
 
     <div class="mt-4">
-        {{ $projects->links() }}
+        {{ $projects->links(data: ['scrollTo' => false]) }}
     </div>
 
-    <livewire:map.view-description />
-    <livewire:map.edit-modal />
-    <livewire:map.delete-modal />
+
 
 </div>
