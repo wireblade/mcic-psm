@@ -18,6 +18,8 @@ class RemoveCodeModal extends Component
 
     public $confirm;
 
+    public $deleteCode;
+
     protected $messages = [
         'confirm.required' => 'please confirm deletion code',
     ];
@@ -32,13 +34,15 @@ class RemoveCodeModal extends Component
 
     public function removeCode()
     {
-        $data = Code::findOrFail($this->codeRemoveId);
+        $data = Code::select('id', 'delete_code')->findOrFail($this->codeRemoveId);
+
+        $this->deleteCode = $data->delete_code;
 
         $this->validate([
             'confirm' => 'required',
         ]);
 
-        if (! Hash::check($this->confirm, $data->delete_code)) {
+        if (! Hash::check($this->confirm, $this->deleteCode)) {
 
             $this->addError('confirm', 'Code does not match.');
         } else {

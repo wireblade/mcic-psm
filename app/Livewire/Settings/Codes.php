@@ -38,6 +38,11 @@ class Codes extends Component
         $this->dispatch('open-remove-modal', id: $id);
     }
 
+    public function openChangeModal($id)
+    {
+        $this->dispatch('open-change-modal', id: $id);
+    }
+
     public function saveCode()
     {
         $validated =  $this->validate([

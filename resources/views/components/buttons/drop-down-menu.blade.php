@@ -1,6 +1,6 @@
 @props([
-'deleteId' => null,
-'finishId' => null,
+'deleteId' => '',
+'finishId' => '',
 ])
 
 
@@ -22,13 +22,13 @@
             @if($finishId)
 
             <x-buttons.drop-down-button action="openFinishModal" icon="fa fa-circle-check" type="success"
-                :id="{{$finishId}}" label="Finish" />
+                :id="$finishId" label="Finish" />
 
             @endif
 
             <div class="bg-gray-200 p-0.5 dark:bg-gray-700"></div>
 
-            <x-buttons.drop-down-button action="openDeleteModal" icon="fa fa-trash" type="danger" :id="{{$deleteId}}"
+            <x-buttons.drop-down-button action="openDeleteModal" icon="fa fa-trash" type="danger" :id="$deleteId"
                 label="Delete" />
         </div>
     </template>

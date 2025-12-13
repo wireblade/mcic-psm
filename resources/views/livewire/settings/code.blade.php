@@ -6,7 +6,7 @@
     <x-settings.layout :heading="__('Code Registered')" :subheading=" __('Update or remove deletion code')">
         @if(auth()->user()->username == 'admin')
         <div class="mt-2">
-            <x-buttons.button action="" type="primary-outline" label="Change" />
+            <x-buttons.button action="openChangeModal" id="{{$id->id}}" type="primary-outline" label="Change" />
 
             <x-buttons.button m="1" type="danger-outline" action="openRemoveModal" id="{{$id->id}}" label="Remove" />
         </div>
