@@ -3,11 +3,9 @@
 <div wire:ignore>
     <x-map-links />
 
-    <div id="map" style="width: 100%; height: 1000px;"></div>
+    <div id="map" style="width:100%; height:1000px;"></div>
 
     <script>
-        const projectsGeoJSON = @json($projectsGeoJSON);
-
         let isDark = localStorage.getItem('mapTheme') !== 'white';
         let labelsVisible = false;
 
@@ -23,71 +21,74 @@
         updateThemeButton();
 
         function addProjectLayers() {
-            if (map.getSource('projects')) return;
+            if (map.getSource('finishedProject')) return;
 
-            map.addSource('projects', {
+            // SINGLE SOURCE (No clustering)
+            map.addSource('finishedProject', {
                 type: 'geojson',
-                data: projectsGeoJSON
+                data: '/map/finishedProject.geojson' // async load
             });
 
+            // ALL POINTS
             map.addLayer({
                 id: 'projects-pins',
                 type: 'circle',
-                source: 'projects',
+                source: 'finishedProject',
                 paint: {
-                    'circle-radius': 3,
-                    'circle-color': '#90EE90',
+                    'circle-radius': 3, // keep small for performance
+                    'circle-color': '#64e764',
                     'circle-stroke-width': 0.9,
-                    'circle-stroke-color': isDark ? '#ffffff' : 'black'
+                    'circle-stroke-color': isDark ? '#fff' : 'gray'
                 }
             });
 
+            // LABELS
             map.addLayer({
                 id: 'projects-labels',
                 type: 'symbol',
-                source: 'projects',
+                source: 'finishedProject',
                 layout: {
                     'text-field': ['get', 'name'],
-                    'text-size': 12,
+                    'text-size': 10,
                     'text-offset': [0, 0.5],
                     'text-anchor': 'top',
                     'visibility': labelsVisible ? 'visible' : 'none'
                 },
                 paint: {
-                    'text-color': isDark ? '#ffffff' : '#000000',
-                    'text-halo-color': isDark ? '#000000' : '#ffffff',
+                    'text-color': isDark ? '#fff' : '#000',
+                    'text-halo-color': isDark ? '#000' : '#fff',
                     'text-halo-width': 1
                 }
             });
 
-            map.on('click', 'projects-pins', (e) => {
-                const props = e.features[0].properties;
+            // POPUP
+            map.on('click', 'projects-pins', e => {
+                const p = e.features[0].properties;
                 new maplibregl.Popup({ offset: 10 })
                     .setLngLat(e.lngLat)
-                    .setHTML(`<strong>${props.name}</strong><br>${props.description ?? ''}`)
+                    .setHTML(`<strong>${p.name}</strong><br>${p.description ?? ''}`)
                     .addTo(map);
             });
 
-            map.on('mouseenter', 'projects-pins', () => {
-                map.getCanvas().style.cursor = 'pointer';
-            });
-
-            map.on('mouseleave', 'projects-pins', () => {
-                map.getCanvas().style.cursor = '';
-            });
+            map.on('mouseenter', 'projects-pins', () => map.getCanvas().style.cursor = 'pointer');
+            map.on('mouseleave', 'projects-pins', () => map.getCanvas().style.cursor = '');
         }
 
-        map.on('load', () => {
-            addProjectLayers();
-        });
+        map.on('load', addProjectLayers);
 
-        document.getElementById('toggleLabels').addEventListener('click', () => {
+        // LABEL TOGGLE
+        document.getElementById('toggleLabels')?.addEventListener('click', () => {
             labelsVisible = !labelsVisible;
-            map.setLayoutProperty('projects-labels', 'visibility', labelsVisible ? 'visible' : 'none');
+            map.setLayoutProperty(
+                'projects-labels',
+                'visibility',
+                labelsVisible ? 'visible' : 'none'
+            );
             toggleLabels.innerText = labelsVisible ? 'Hide All Projects' : 'Show All Projects';
         });
 
-        document.getElementById('toggleTheme').addEventListener('click', () => {
+        // THEME TOGGLE
+        document.getElementById('toggleTheme')?.addEventListener('click', () => {
             isDark = !isDark;
 
             map.setStyle(isDark
@@ -98,25 +99,26 @@
             localStorage.setItem('mapTheme', isDark ? 'dark' : 'white');
             updateThemeButton();
 
-            map.once('style.load', () => {
-                addProjectLayers();
-            });
+            map.once('style.load', addProjectLayers);
         });
 
         function updateThemeButton() {
             const btn = document.getElementById('toggleTheme');
             if (!btn) return;
-
-            if (isDark) {
-                btn.innerHTML = '<i class="fa fa-sun"></i>';
-                btn.style.backgroundColor = 'black';
-                btn.style.color = 'white';
-            } else {
-                btn.innerHTML = '<i class="fa fa-moon"></i>';
-                btn.style.backgroundColor = 'white';
-                btn.style.color = 'black';
-                btn.style.border = '1px solid black';
-            }
+            btn.innerHTML = isDark ? '☀️' : '🌙';
+            
+            //   if (isDark) {
+            //     btn.innerHTML = '<i class="fa fa-sun"></i>';
+            //     btn.style.backgroundColor = 'black';
+            //     btn.style.color = 'white';
+            // } else {
+            //     btn.innerHTML = '<i class="fa fa-moon"></i>';
+            //     btn.style.backgroundColor = 'white';
+            //     btn.style.color = 'black';
+            //     btn.style.border = '1px solid black';
+            // }
         }
+
+        document.getElementById('map').style.willChange = 'transform';
     </script>
 </div>

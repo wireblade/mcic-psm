@@ -15,6 +15,8 @@ class FinishedProject extends Component
 
     public string $title = "Finished Project";
 
+    public $search = '';
+
     #[On('refreshTable')]
     public function refreshTable()
     {
@@ -40,7 +42,13 @@ class FinishedProject extends Component
     {
         // $projects = Project::orderBy('id', 'desc')->where('status', '1')->paginate(5);
 
-        $projects = Project::selectRaw("id, name, latitude, longitude, LEFT(description, 51) AS description, dateStart, dateEnd")->where('status', '1')->paginate(20);
+        $projects = Project::selectRaw("id, name, latitude, longitude, LEFT(description, 51) AS description, dateStart, dateEnd")
+            ->where('status', '1')
+            ->where(function ($query) {
+                $query->where('name', 'like', '%' . $this->search . '%')
+                    ->orWhereRaw("DATE_FORMAT(dateStart, '%b %d %Y') LIKE ?", ['%' . $this->search . '%']);
+            })
+            ->paginate(20);
 
         return view('livewire.map.finished-project', [
             'projects' => $projects,

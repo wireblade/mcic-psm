@@ -20,7 +20,7 @@
 
             <div class="space-y-3">
 
-                <x-inputs.input type="password" label="Current Code" name="confirmOldCode" autofocus="focusInput"
+                <x-inputs.input type="password" label="Current Code" name="confirmCurrentCode" autofocus="focusInput"
                     placeholder="Enter current code" />
 
                 <x-inputs.input type="password" label="New code" name="new" placeholder="Enter new code" />

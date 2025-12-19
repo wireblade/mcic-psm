@@ -23,7 +23,7 @@
 
             <x-inputs.input type="password" mb="2" label="Confirm Deletion Code" name="code_confirmation" />
 
-            <x-buttons.button action="saveCode" px="5" py="2" label="Save" />
+            <x-buttons.button type="primary-outline" action="saveCode" px="5" py="2" label="Save" />
 
         </div>
         @endif

@@ -78,7 +78,7 @@
         <flux:spacer />
 
         <flux:dropdown position="top" align="end">
-            <flux:profile :initials="auth()->user()->username" icon-trailing="chevron-down" />
+            <flux:profile icon-trailing="chevron-down" />
 
             <flux:menu>
 

@@ -59,11 +59,13 @@
 
                     <td class="border-b border-gray-200 dark:border-gray-700 text-center">
 
+                        {{-- <a href="{{route('project.files', $project->id)}}">test</a> --}}
+
                         <x-buttons.button type="menu" action="openEditModal" id="{{$project->id}}" icon="fa fa-edit"
                             px="2" popup="Edit" />
-
                         <!-- dropdown: prevent Livewire from re-rendering this block and hide until Alpine ready -->
-                        <x-buttons.drop-down-menu finishId="{{$project->id}}" deleteId="{{$project->id}}" />
+                        <x-buttons.drop-down-menu fileId="{{$project->id}}" finishId="{{$project->id}}"
+                            deleteId="{{$project->id}}" />
 
                     </td>
                 </tr>

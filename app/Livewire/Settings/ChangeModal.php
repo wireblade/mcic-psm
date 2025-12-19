@@ -15,14 +15,14 @@ class ChangeModal extends Component
 
     public $openChangeModal = false;
 
-    public $oldCode;
-    public $confirmOldCode;
+    public $currentCode;
+    public $confirmCurrentCode;
 
     public $new;
     public $new_confirmation;
 
     protected $rules = [
-        'confirmOldCode' => 'required',
+        'confirmCurrentCode' => 'required',
         'new' => 'required|confirmed',
     ];
 
@@ -38,7 +38,7 @@ class ChangeModal extends Component
         $data = Code::select('id', 'delete_code')->findOrFail($id);
 
         $this->codeId = $data->id;
-        $this->oldCode = $data->delete_code;
+        $this->currentCode = $data->delete_code;
 
         $this->openChangeModal = true;
     }
@@ -47,20 +47,23 @@ class ChangeModal extends Component
     {
         // 1. Validate inputs first
         $data = $this->validate([
-            'confirmOldCode' => ['required'],
-            'new' => ['required', 'max:255', 'confirmed'],
-            'new_confirmation' => ['required'],
+            'confirmCurrentCode' => ['required'],
         ]);
 
         // 2. Check current code
-        if (! Hash::check($this->confirmOldCode, $this->oldCode)) {
-            $this->addError('confirmOldCode', 'The current code you entered is incorrect.');
+        if (! Hash::check($this->confirmCurrentCode, $this->currentCode)) {
+            $this->addError('confirmCurrentCode', 'The current code you entered is incorrect.');
             $this->openChangeModal = true;
             return;
         }
 
+        $data = $this->validate([
+            'new' => ['required', 'max:255', 'confirmed'],
+            'new_confirmation' => ['required'],
+        ]);
+
         // 3. Prevent reuse of old code
-        if (Hash::check($this->new, $this->oldCode)) {
+        if (Hash::check($this->new, $this->currentCode)) {
             $this->addError('new', 'Your new code must be different from your current code..');
             return;
         }
