@@ -34,8 +34,8 @@
                         @if(!empty($project->description))
                         {{ Str::limit($project->description, 50) }}
                         @if(Str::length($project->description) > 50)
-                        <x-buttons.button-icon action="viewDescription" id="{{$project->id}}" popup="View Description"
-                            px="0" type="menu" label="🔍" />
+                        <x-buttons.button action="viewDescription" id="{{$project->id}}" popup="View Description" px="0"
+                            type="transparent" label="🔍" />
                         @endif
                         @endif
                     </td>
@@ -51,7 +51,8 @@
                             px="2" popup="Edit" />
 
                         <!-- dropdown: prevent Livewire from re-rendering this block and hide until Alpine ready -->
-                        <x-buttons.drop-down-menu fileId="{{$project->id}}" deleteId="{{$project->id}}" />
+                        <x-buttons.drop-down-menu fileId="{{$project->id}}" deleteId="{{$project->id}}"
+                            page="{{$projects->currentPage()}}" />
 
                     </td>
                 </tr>

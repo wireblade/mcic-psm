@@ -55,6 +55,7 @@ class Index extends Component
 
     public function render()
     {
+
         // $projects = Project::orderBy('id', 'desc')->where('status', '0')->paginate(5);
         $projects = Project::selectRaw("id, name, latitude, longitude, LEFT(description, 51) AS description, dateStart")
             ->where('status', 0)

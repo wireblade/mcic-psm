@@ -1,7 +1,6 @@
 @section('title', config('app.name').' |'.' '.$title)
 
 <div>
-
     <div class="flex justify-between item-center mb-4">
         <h1 class="text-2xl font-bold">{{$title}}</h1>
     </div>
@@ -17,9 +16,7 @@
             <x-inputs.search placeholder="Search Projects" live="search" />
         </div>
 
-
     </div>
-
     <div class="overflow-x-auto rounded-lg shadow-md mt-5 dark:shadow-black">
         <table class="min-w-full text-sm text-left bg-white dark:bg-gray-800 ">
             <thead class="bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100 uppercase text-xs">
@@ -47,8 +44,8 @@
                         @if(!empty($project->description))
                         {{ Str::limit($project->description, 50) }}
                         @if(Str::length($project->description) > 50)
-                        <x-buttons.button-icon action="viewDescription" id="{{$project->id}}" popup="View Description"
-                            px="0" type="menu" label="🔍" />
+                        <x-buttons.button action="viewDescription" id="{{$project->id}}" popup="View Description" px="0"
+                            type="transparent" label="🔍" />
                         @endif
                         @endif
                     </td>
@@ -59,13 +56,12 @@
 
                     <td class="border-b border-gray-200 dark:border-gray-700 text-center">
 
-                        {{-- <a href="{{route('project.files', $project->id)}}">test</a> --}}
-
                         <x-buttons.button type="menu" action="openEditModal" id="{{$project->id}}" icon="fa fa-edit"
                             px="2" popup="Edit" />
+
                         <!-- dropdown: prevent Livewire from re-rendering this block and hide until Alpine ready -->
                         <x-buttons.drop-down-menu fileId="{{$project->id}}" finishId="{{$project->id}}"
-                            deleteId="{{$project->id}}" />
+                            deleteId="{{$project->id}}" page="{{$projects->currentPage()}}" />
 
                     </td>
                 </tr>
@@ -74,7 +70,7 @@
                 <tr>
                     <td colspan="7" class="px-6 py-3 border-b border-gray-200 dark:border-gray-700">
                         <center>
-                            No departments found.
+                            No projects found.
                         </center>
                     </td>
                 </tr>
@@ -83,6 +79,7 @@
             </tbody>
         </table>
     </div>
+
 
     <div class="mt-4">
         {{ $projects->links(data: ['scrollTo' => false]) }}

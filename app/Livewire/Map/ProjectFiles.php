@@ -4,14 +4,19 @@ namespace App\Livewire\Map;
 
 use App\Models\Project;
 use Livewire\Attributes\On;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 
 class ProjectFiles extends Component
 {
-
     public $id;
     public $name;
     public $description;
+    public $status;
+
+    // This will keep the page parameter in the URL
+    #[Url()]
+    public $page = 1;
 
     #[On('refreshFiles')]
     public function refreshFiles()
@@ -26,6 +31,7 @@ class ProjectFiles extends Component
         $this->description = $project->description;
         $this->id = $id;
         $this->name = $project->name;
+        $this->status = $project->status;
     }
 
     public function openUploadModal($id)

@@ -1,12 +1,24 @@
 @section('title', config('app.name').' |'.' '.$name)
 
 <div>
+    {{$status}}
     <div>
-        <a href="{{ request('from') === 'completed' 
-            ? route('map.index') 
-            : route('map.finished') }}" class="inline-flex items-center text-sm text-gray-600 hover:text-gray-900">
-            ← Back
+        @if($status > 0)
+
+        <a href="{{ route('map.finished', ['page' => $page]) }}"
+            class="inline-flex items-center text-sm text-gray-600 hover:text-gray-900">
+            ← Back to List
         </a>
+
+        @else
+
+        <a href="{{ route('map.index', ['page' => $page]) }}"
+            class="inline-flex items-center text-sm text-gray-600 hover:text-gray-900">
+            ← Back to List
+        </a>
+
+        @endif
+
     </div>
 
     <div class="flex justify-between item-center">
@@ -22,9 +34,6 @@
                 icon="fa fa-file fa-xs" />
         </div>
     </div>
-
-
-
 
     @php
     $groupedByCategory = $project->files->groupBy('category');

@@ -19,6 +19,9 @@ $styles = [
 'default' => 'border-gray-400 dark:border-transparent rounded-md bg-transparent dark:bg-gray-800 text-gray-600
 hover:bg-gray-300
 dark:hover:bg-gray-900',
+
+'transparent' => 'border-transparent bg-transparent',
+
 'primary' => 'rounded-md bg-blue-500 text-white hover:bg-blue-700 border-transparent',
 'danger' => 'rounded-md bg-red-500 text-white hover:bg-red-700',
 'success' => 'rounded-md bg-green-500 text-white hover:bg-green-700',
@@ -40,16 +43,21 @@ dark:text-gray-500 dark:hover:bg-gray-600 dark:hover:border-gray-500 hover:text-
 ];
 
 $class = $styles[$type] ?? $styles['primary'];
+
+// Add shadow classes conditionally
+$shadowClasses = $type !== 'transparent' ? 'shadow-md dark:shadow-black' : '';
+
 @endphp
 
 
 @if($popup) <div x-data="{ tooltip: false }" class="relative inline-block"> @endif
 
-    <button x-cloak @if($action) wire:click="{{ $action }} @if($id)({{$id}})@endif" @endif
+    <button x-cloak @if($action) wire:click="{{ $action }} @if($id) ({{$id}}) @endif" @endif
         {{$attributes->merge(['class'=>
-        "p-{$p} px-{$px} m-{$m} py-{$py} mt-{$mt} ml-{$ml} dark:shadow-black shadow-md
-        transition duration-400 cursor-pointer border {$class}"])}} @mouseenter="tooltip = true" @mouseleave="tooltip =
-        false">
+        "p-{$p} px-{$px} m-{$m} py-{$py} mt-{$mt} ml-{$ml} {$shadowClasses}
+        transition duration-400 cursor-pointer border {$class}"])}}
+        @mouseenter="tooltip = true"
+        @mouseleave="tooltip = false">
         <i class="{{ $icon }}"></i> @if($label === 'More') @else {{$label}} @endif
     </button>
 

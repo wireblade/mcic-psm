@@ -2,6 +2,7 @@
 'deleteId' => '',
 'finishId' => '',
 'fileId' => '',
+'page' => null,
 ])
 
 <div wire:ignore.self x-data="{ open: false, pos: { top: 0, left: 0 } }" x-cloak class="inline-block">
@@ -20,7 +21,7 @@
             :style="`top: ${pos.top}px; left: ${pos.left}px;`">
 
             <x-buttons.drop-down-button route="project.files" icon="fa fa-file" type="default" :id="$fileId"
-                label="View files" />
+                label="View files" :page="$page" />
 
             <div class="bg-gray-200 p-0.5 dark:bg-gray-700"></div>
 
