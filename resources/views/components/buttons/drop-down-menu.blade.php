@@ -1,7 +1,6 @@
 @props([
-'deleteId' => '',
+'projId' => '',
 'finishId' => '',
-'fileId' => '',
 'page' => null,
 ])
 
@@ -20,7 +19,7 @@
             class="w-40 bg-white absolute mr-30 dark:border-gray-500 dark:bg-gray-800 rounded-md shadow-md shadow-black z-50 overflow-hidden"
             :style="`top: ${pos.top}px; left: ${pos.left}px;`">
 
-            <x-buttons.drop-down-button route="project.files" icon="fa fa-file" type="default" :id="$fileId"
+            <x-buttons.drop-down-button route="project.files" icon="fa fa-file" type="default" :id="$projId"
                 label="View files" :page="$page" />
 
             <div class="bg-gray-200 p-0.5 dark:bg-gray-700"></div>
@@ -34,7 +33,7 @@
 
             <div class="bg-gray-200 p-0.5 dark:bg-gray-700"></div>
 
-            <x-buttons.drop-down-button action="openDeleteModal" icon="fa fa-trash" type="danger" :id="$deleteId"
+            <x-buttons.drop-down-button action="openDeleteModal" icon="fa fa-trash" type="danger" :id="$projId"
                 label="Delete" />
         </div>
     </template>

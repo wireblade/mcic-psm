@@ -60,8 +60,8 @@
                             px="2" popup="Edit" />
 
                         <!-- dropdown: prevent Livewire from re-rendering this block and hide until Alpine ready -->
-                        <x-buttons.drop-down-menu fileId="{{$project->id}}" finishId="{{$project->id}}"
-                            deleteId="{{$project->id}}" page="{{$projects->currentPage()}}" />
+                        <x-buttons.drop-down-menu projId="{{$project->id}}" finishId="{{$project->id}}"
+                            page="{{$projects->currentPage()}}" />
 
                     </td>
                 </tr>

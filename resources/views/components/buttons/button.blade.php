@@ -12,6 +12,8 @@
 'p' => '',
 'ml' => '',
 'popup' => '',
+'route' => '',
+'page' => '',
 ])
 
 @php
@@ -52,19 +54,23 @@ $shadowClasses = $type !== 'transparent' ? 'shadow-md dark:shadow-black' : '';
 
 @if($popup) <div x-data="{ tooltip: false }" class="relative inline-block"> @endif
 
-    <button x-cloak @if($action) wire:click="{{ $action }} @if($id) ({{$id}}) @endif" @endif
-        {{$attributes->merge(['class'=>
-        "p-{$p} px-{$px} m-{$m} py-{$py} mt-{$mt} ml-{$ml} {$shadowClasses}
-        transition duration-400 cursor-pointer border {$class}"])}}
-        @mouseenter="tooltip = true"
-        @mouseleave="tooltip = false">
-        <i class="{{ $icon }}"></i> @if($label === 'More') @else {{$label}} @endif
-    </button>
+    @if($route)<a href="{{ route($route, [
+   'page' => $page,
+    ])}}">@endif
+        <button x-cloak @if($action) wire:click="{{ $action }} @if($id) ({{$id}}) @endif" @endif
+            {{$attributes->merge(['class'=>
+            "p-{$p} px-{$px} m-{$m} py-{$py} mt-{$mt} ml-{$ml} {$shadowClasses}
+            transition duration-400 cursor-pointer border {$class}"])}}
+            @mouseenter="tooltip = true"
+            @mouseleave="tooltip = false">
+            <i class="{{ $icon }}"></i> @if($label === 'More') @else {{$label}} @endif
+        </button>
 
-    @if($popup) <div x-show="tooltip" x-transition x-cloak
-        class="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 bg-gray-700 dark:bg-black text-white text-xs rounded px-2 py-1 whitespace-nowrap">
-        {{$popup}}
-    </div>
+        @if($popup) <div x-show="tooltip" x-transition x-cloak
+            class="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 bg-gray-700 dark:bg-black text-white text-xs rounded px-2 py-1 whitespace-nowrap">
+            {{$popup}}
+        </div>
+        @if($route)</a>@endif
 </div>
 
 @endif

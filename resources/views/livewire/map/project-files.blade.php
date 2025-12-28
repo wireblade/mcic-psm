@@ -1,23 +1,15 @@
 @section('title', config('app.name').' |'.' '.$name)
 
 <div>
-    {{$status}}
     <div>
-        @if($status > 0)
-
-        <a href="{{ route('map.finished', ['page' => $page]) }}"
+        <a href="{{ route( $status > 0 ? 'map.finished' :  'map.index', ['page' => $page]) }}"
             class="inline-flex items-center text-sm text-gray-600 hover:text-gray-900">
             ← Back to List
         </a>
 
-        @else
-
-        <a href="{{ route('map.index', ['page' => $page]) }}"
-            class="inline-flex items-center text-sm text-gray-600 hover:text-gray-900">
-            ← Back to List
-        </a>
-
-        @endif
+        {{--
+        <x-buttons.button type="transparent" route="{{$status > 0 ? 'map.finished' : 'map.index'}}" :page="$page"
+            label="← Back to List" /> --}}
 
     </div>
 

@@ -24,11 +24,6 @@ $class = $styles[$type] ?? $styles['primary'];
 
 @endphp
 
-{{-- <a href="{{ route('project.files', ['id' => $project->id, 'page' => $projects->currentPage()]) }}"
-    class="btn btn-primary">
-    View File
-</a> --}}
-
 <div>
     @if($route)<a href="{{ route($route,[
         'id' => $id,
@@ -41,14 +36,3 @@ $class = $styles[$type] ?? $styles['primary'];
         </button>
         @if($route) </a> @endif
 </div>
-
-
-{{-- <div>
-    @if($route)<a href="{{ route($route, $id)}} "> @endif
-        <button @if($action) x-on:click="open = false; $wire.{{$action}}({{ $id }}); " @endif
-            wire:click="@if($action){{$action}}@endif @if($id)({{ $id }})@endif"
-            class="w-full text-left px-3 py-2 transition duration-400  {{$class}}">
-            <i class="{{$icon}}  hover:text-white text-xs mr-1"></i> {{$label}}
-        </button>
-        @if($route) </a> @endif
-</div> --}}
