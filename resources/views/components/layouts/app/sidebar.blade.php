@@ -110,6 +110,7 @@
     <livewire:map.finish-modal />
     <livewire:map.delete-modal />
     <livewire:map.file-upload-modal />
+    <livewire:map.view-image />
     <livewire:settings.change-modal />
 
 </body>

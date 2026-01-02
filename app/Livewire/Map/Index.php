@@ -48,6 +48,11 @@ class Index extends Component
         $this->dispatch('open-description-modal', id: $id);
     }
 
+    public function openImageModal($id)
+    {
+        $this->dispatch('open-image-modal', id: $id);
+    }
+
     public function updatingSearch()
     {
         $this->resetPage();

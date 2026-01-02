@@ -26,6 +26,7 @@
                     <th class="w-1/6 px-6 py-3 border-b border-gray-300 dark:border-gray-600">Latitude</th>
                     <th class="w-1/6 px-6 py-3 border-b border-gray-300 dark:border-gray-600">Longitude</th>
                     <th class="w-1/3 px-6 py-3 border-b border-gray-300 dark:border-gray-600">Description</th>
+                    <th class="w-1/3 px-6 py-3 border-b border-gray-300 dark:border-gray-600">Images</th>
                     <th class="w-1/6 px-6 py-3 border-b border-gray-300 dark:border-gray-600">Date Start</th>
                     <th class="w-1/6 px-6 py-3 border-b border-gray-300 dark:border-gray-600 text-center">Actions
                     </th>
@@ -49,7 +50,19 @@
                         @endif
                         @endif
                     </td>
+                    <td class="px-6 py-3 border-b border-gray-200 dark:border-gray-700">
+                        @php
+                        $hasImages = $project->files->filter(function($file) {
+                        $allowedMimes = ['image/png', 'image/jpeg', 'image/jpg', 'image/webp'];
+                        return in_array($file->mime_type, $allowedMimes);
+                        })->count() > 0;
+                        @endphp
 
+                        @if($hasImages)
+                        <x-buttons.button px="" type="transparent" action="openImageModal" id="{{$project->id}}"
+                            label="view image" />
+                        @endif
+                    </td>
                     <td class="px-6 py-3 border-b border-gray-200 dark:border-gray-700">
                         {{ optional($project->dateStart)?->format('M d Y') ?? '' }}
                     </td>
