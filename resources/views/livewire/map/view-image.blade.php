@@ -12,7 +12,7 @@
         x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 z-50">
 
         <!-- Backdrop -->
-        <div class="absolute inset-0 bg-black opacity-85"></div>
+        <div class="absolute inset-0 bg-black opacity-90"></div>
         0
         <!-- Main Container -->
         <div class="relative h-full w-full">
