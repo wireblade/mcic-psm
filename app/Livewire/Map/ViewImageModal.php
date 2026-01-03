@@ -6,7 +6,7 @@ use App\Models\Project;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
-class ViewImage extends Component
+class ViewImageModal extends Component
 {
 
     public $openImageModal = false;
@@ -82,7 +82,7 @@ class ViewImage extends Component
     public function render()
     {
         return view(
-            'livewire.map.view-image'
+            'livewire.map.view-image-modal'
         );
     }
 }

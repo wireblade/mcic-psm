@@ -104,14 +104,15 @@
     @fluxScripts
 
     <livewire:flash-alert />
-    <livewire:map.view-description />
+    <livewire:map.view-description-modal />
     <livewire:map.edit-modal />
     <livewire:map.add-modal />
     <livewire:map.finish-modal />
     <livewire:map.delete-modal />
     <livewire:map.file-upload-modal />
-    <livewire:map.view-image />
+    <livewire:map.view-image-modal />
     <livewire:settings.change-modal />
+    <livewire:map.delete-file-modal />
 
 </body>
 

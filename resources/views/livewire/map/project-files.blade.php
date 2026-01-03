@@ -78,9 +78,9 @@
                         ⬇️
                     </a>
 
-                    <a href="{{ Storage::url($file->file_path) }}" target="_blank" class="ml-2">
-                        ⛔
-                    </a>
+                    <x-buttons.button type="transparent" px="" label="⛔" action="openDeleteFileModal"
+                        id="{{$file->id}}" />
+
                 </div>
                 @endforeach
             </div>

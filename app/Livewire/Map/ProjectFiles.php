@@ -39,6 +39,11 @@ class ProjectFiles extends Component
         $this->dispatch('open-upload-modal', id: $id);
     }
 
+    public function openDeleteFileModal($id)
+    {
+        $this->dispatch('open-delete-file-modal', id: $id);
+    }
+
     public function render()
     {
         return view('livewire.map.project-files', [

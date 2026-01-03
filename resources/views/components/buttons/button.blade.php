@@ -20,7 +20,7 @@
 $styles = [
 'default' => 'border-gray-400 dark:border-transparent rounded-md bg-transparent dark:bg-gray-800 text-gray-600
 hover:bg-gray-300
-dark:hover:bg-gray-900',
+dark:hover:bg-gray-900 dark:text-white',
 
 'transparent' => 'border-transparent bg-transparent',
 
@@ -63,7 +63,7 @@ $shadowClasses = $type !== 'transparent' ? 'shadow-md dark:shadow-black' : '';
             transition duration-400 cursor-pointer border {$class}"])}}
             @mouseenter="tooltip = true"
             @mouseleave="tooltip = false">
-            <i class="{{ $icon }}"></i> @if($label === 'More') @else {{$label}} @endif
+            <i class="{{ $icon }}"> </i> @if($label === 'More') @else {{$label}} @endif
         </button>
 
         @if($popup) <div x-show="tooltip" x-transition x-cloak

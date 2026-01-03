@@ -6,7 +6,7 @@ use App\Models\Project;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
-class ViewDescription extends Component
+class ViewDescriptionModal extends Component
 {
     public $descriptionId = null;
     public $description;
@@ -28,6 +28,6 @@ class ViewDescription extends Component
 
     public function render()
     {
-        return view('livewire.map.view-description');
+        return view('livewire.map.view-description-modal');
     }
 }
