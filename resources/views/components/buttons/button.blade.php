@@ -14,6 +14,9 @@
 'popup' => '',
 'route' => '',
 'page' => '',
+'key' => '',
+'keyId' => '',
+
 ])
 
 @php
@@ -57,13 +60,24 @@ $shadowClasses = $type !== 'transparent' ? 'shadow-md dark:shadow-black' : '';
     @if($route)<a href="{{ route($route, [
    'page' => $page,
     ])}}">@endif
-        <button x-cloak @if($action) wire:click="{{ $action }} @if($id) ({{$id}}) @endif" @endif
-            {{$attributes->merge(['class'=>
+        <button x-cloak @if($key) {{-- key start --}} wire:key="{{$keyId}}" x-data="{ locked: false }"
+            x-bind:disabled="locked" @click="locked = true" wire:click="{{$key}}({{ $keyId }})"
+            wire:target="{{$key}}({{ $keyId }})" wire:loading.attr="disabled" {{-- key end --}} @endif @if($action)
+            wire:click=" {{ $action }} @if($id) ({{$id}}) @endif" @endif {{$attributes->merge(['class'=>
             "p-{$p} px-{$px} m-{$m} py-{$py} mt-{$mt} ml-{$ml} {$shadowClasses}
             transition duration-400 cursor-pointer border {$class}"])}}
             @mouseenter="tooltip = true"
             @mouseleave="tooltip = false">
             <i class="{{ $icon }}"> </i> @if($label === 'More') @else {{$label}} @endif
+
+            @if($key)
+            <span wire:loading.remove wire:target="{{$key}}({{ $keyId }})">
+                Delete
+            </span>
+            <span wire:loading wire:target="{{$key}}({{ $keyId }})">
+                <span class="fa fa-spinner animate-spin"></span> Deleting
+            </span>
+            @endif
         </button>
 
         @if($popup) <div x-show="tooltip" x-transition x-cloak

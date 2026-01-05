@@ -22,7 +22,25 @@
 
                     <x-buttons.button action="$set('openDeleteModal', false)" type="outline" label="Cancel" />
 
-                    <x-buttons.button action="deleteFile" type="danger-outline" label="Delete" />
+
+                    <x-buttons.button key="deleteFile" keyId="{{ $fileId }}" type="danger-outline" />
+
+                    {{-- <button wire:key="{{ $fileId }}" x-data="{ locked: false }" x-bind:disabled="locked"
+                        @click="locked = true" wire:click="deleteFile({{ $fileId }})"
+                        wire:target="deleteFile({{ $fileId }})" wire:loading.attr="disabled" class="btn btn-danger">
+
+
+                        <span wire:loading.remove wire:target="deleteFile({{ $fileId }})">
+                            Delete
+                        </span>
+
+                        <span wire:loading wire:target="deleteFile({{ $fileId }})">
+                            <span class="fa fa-spinner animate-spin"></span> Deleting
+                        </span>
+
+                    </button> --}}
+
+
 
                 </div>
 
