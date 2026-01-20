@@ -224,7 +224,23 @@
             <!-- Footer - Fixed -->
             <div class="p-6 border-t border-gray-200 dark:border-gray-700 flex justify-end space-x-2">
                 <x-buttons.button action="$set('openUploadModal', false)" type="outline" label="Cancel" />
-                <x-buttons.button action="uploadFile" type="primary" label="Upload" />
+                <x-buttons.button action="uploadFile" type="primary" loading="Upload" />
+
+                {{-- <button 
+                    wire:click="uploadFile"
+                    wire:target="uploadFile" 
+                    wire:loading.attr="disabled" 
+                    class="border rounded-md bg-blue-500 px-3 py-2 text-white hover:bg-blue-600 transition duration-200 shadow-md disabled:opacity-50 disabled:cursor-not-allowed">
+                    
+                    <span wire:loading.remove wire:target="uploadFile">
+                        Upload Files
+                    </span>
+                    <span wire:loading wire:target="uploadFile">
+                        <span class="fa fa-spinner animate-spin"></span> Uploading files...
+                    </span>
+
+                </button> --}}
+
             </div>
 
         </div>

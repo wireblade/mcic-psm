@@ -35,7 +35,7 @@ class FileUploadModal extends Component
     public function rules()
     {
         return [
-            'accumulatedFiles.*' => 'required|file|mimes:pdf,doc,docx,xls,xlsx,jpg,jpeg,png,pptx,mp4|max:1024000',
+            'accumulatedFiles.*' => 'required|file|mimes:pdf,doc,docx,xls,xlsx,jpg,jpeg,png,pptx,mp4,html|max:1024000',
         ];
     }
 
@@ -96,6 +96,7 @@ class FileUploadModal extends Component
             $uploadedCount++;
         }
 
+        sleep(1); // Simulate processing time
         $this->reset();
         $this->dispatch('showAlert', type: 'success', message: 'File uploaded successfully!');
         $this->openUploadModal = false;
@@ -112,6 +113,7 @@ class FileUploadModal extends Component
             'application/pdf' => 'PDF',
             'image/png', 'image/jpeg', 'image/jpg', 'image/webp' => 'Images',
             'video/mp4' => 'Videos',
+            'text/html' => 'HTML',
             default => 'Other',
         };
     }

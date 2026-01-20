@@ -47,10 +47,10 @@
             type: 'circle',
             source: 'finishedProject',
             paint: {
-                'circle-radius': 2.5,
-                'circle-color': '#EB212E',
+                'circle-radius': 4,
+                'circle-color': 'green',
                 'circle-stroke-width': 0.9,
-                'circle-stroke-color': isDark ? '#fff' : 'orange'
+                'circle-stroke-color': isDark ? '#fff' : 'white'
             }
         });
 

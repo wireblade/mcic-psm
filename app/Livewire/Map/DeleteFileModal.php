@@ -12,11 +12,16 @@ class DeleteFileModal extends Component
 {
     public $openDeleteFileModal = false;
     public $fileId = null;
+    public $fileName;
 
     #[On('open-delete-file-modal')]
     public function openDeleteFileModal($id)
     {
         $this->fileId = $id;
+
+        $file = ProjectFile::findOrFail($this->fileId);
+
+        $this->fileName = $file->original_name;
 
         $this->openDeleteFileModal = true;
     }

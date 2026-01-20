@@ -31,12 +31,14 @@
     $groupedByCategory = $project->files->groupBy('category');
     @endphp
 
+    @if($project->files->isEmpty())
+    <p class="text-gray-600 dark:text-gray-300 mt-5">No files uploaded yet.</p>
+    @endif
+
+    {{-- File categories and dates --}}
     @foreach ($groupedByCategory as $category => $filesInCategory)
     <div class="mt-8">
-        <h1
-            class="uppercase text-2xl font-bold border-b dark:border-gray-400 pb-1 mb-4 text-gray-800 dark:text-gray-300">
-            {{
-            $category }}</h1>
+        <h1 class="uppercase text-2xl font-bold border-b dark:border-gray-400 pb-1 mb-4 text-gray-800 dark:text-gray-300">{{ $category }}</h1>
 
         @php
         $groupedByDate = $filesInCategory
@@ -64,22 +66,21 @@
                     </div>
 
                     @if($file->mime_type == 'video/mp4')
-
-                    <a href="{{ Storage::url($file->file_path) }}" target="_blank"
-                        class="text-blue-600 hover:text-blue-800 font-semibold text-sm">
-                        🟢
-                    </a>
+                    
+                    <x-buttons.button type="transparent" px="" py="" ml="" label="▶️" action="openVideoImageModal" id="{{$file->id}} " popup="Play Video" />
 
                     @endif
 
-                    <a href="{{ Storage::url($file->file_path) }}" target="_blank"
-                        download="{{ basename($file->file_path) }}"
-                        class="ml-2 text-blue-600 hover:text-blue-800 font-semibold text-sm">
-                        ⬇️
-                    </a>
+                    @if($file->mime_type == 'image/png' || $file->mime_type == 'image/jpeg' || $file->mime_type == 'image/jpg')
 
+                    <x-buttons.button type="transparent" px="" py="" ml="" label="🔍" action="openVideoImageModal" id="{{$file->id}}" popup="Show Image" />
+
+                    @endif
+                    
+                    <x-buttons.button type="transparent" px="" py="" ml="" label="⬇️" downloadLink="{{ Storage::url($file->file_path) }}" downloadFile="{{ basename($file->file_path) }}"  popup="Download" />
+                    
                     <x-buttons.button type="transparent" px="" label="⛔" action="openDeleteFileModal"
-                        id="{{$file->id}}" />
+                        id="{{$file->id}}" popup="Delete" />
 
                 </div>
                 @endforeach
@@ -89,4 +90,5 @@
         @endforeach
     </div>
     @endforeach
+
 </div>

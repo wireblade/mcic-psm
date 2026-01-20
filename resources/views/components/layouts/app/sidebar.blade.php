@@ -111,8 +111,10 @@
     <livewire:map.delete-modal />
     <livewire:map.file-upload-modal />
     <livewire:map.view-image-modal />
+    <livewire:map.open-video-image-modal />
     <livewire:settings.change-modal />
     <livewire:map.delete-file-modal />
+    
 
 </body>
 

@@ -39,9 +39,15 @@ class ProjectFiles extends Component
         $this->dispatch('open-upload-modal', id: $id);
     }
 
+
     public function openDeleteFileModal($id)
     {
         $this->dispatch('open-delete-file-modal', id: $id);
+    }
+
+    public function openVideoImageModal($id)
+    {
+        $this->dispatch('open-video-image-modal', id: $id);
     }
 
     public function render()

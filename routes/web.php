@@ -35,10 +35,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('files/{id}', \App\Livewire\Map\ProjectFiles::class)->name('project.files');
 });
 
-
+// Map View Routes
 Route::get('map-view/', \App\Livewire\Map\MapView::class)->name('map.view');
 Route::get('map-view-finished/', \App\Livewire\Map\MapViewFinished::class)->name('map.complete');
 
+// GeoJSON Data Routes
 Route::get('/map/projects.geojson', [MapDataController::class, 'projects']);
 Route::get('/map/finishedProject.geojson', [MapDataController::class, 'finishedProject']);
 

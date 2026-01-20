@@ -1,25 +1,27 @@
 @props([
-'type' => 'primary',
-'click' => 'null',
-'label' => '',
-'id' => '',
-'icon' => '',
-'action' => null,
-'px' => '3',
-'py' => '1',
-'mt' => '',
-'m' => '',
-'p' => '',
-'ml' => '',
-'popup' => '',
-'route' => '',
-'page' => '',
-'key' => '',
-'keyId' => '',
+'type' => 'primary', // button style type
+'label' => '', // button label
+'id' => '', // optional id for Livewire actions
+'icon' => '', // icon class
+'action' => null, // Livewire action method
+'px' => '3', // padding-x
+'py' => '1', // padding-y
+'mt' => '', // margin-top
+'m' => '', // margin
+'p' => '', // padding
+'ml' => '', // margin-left
+'popup' => '', // tooltip text
+'route' => '', // route name
+'page' => '', // for pagination routes
+'loading' => '', // loading state label
+'downloadLink' => '', // link to download file
+'downloadFile' => null, // name of the file to download
 
 ])
 
 @php
+
+// Define styles for different button types
 $styles = [
 'default' => 'border-gray-400 dark:border-transparent rounded-md bg-transparent dark:bg-gray-800 text-gray-600
 hover:bg-gray-300
@@ -47,6 +49,7 @@ dark:text-gray-500 dark:hover:bg-gray-600 dark:hover:border-gray-500 hover:text-
 'success-outline' => 'rounded-md border border-green-700 text-green-500 hover:bg-green-700 hover:text-white',
 ];
 
+// Get the appropriate class for the button type
 $class = $styles[$type] ?? $styles['primary'];
 
 // Add shadow classes conditionally
@@ -54,37 +57,92 @@ $shadowClasses = $type !== 'transparent' ? 'shadow-md dark:shadow-black' : '';
 
 @endphp
 
+     {{-- Wrap with anchor tag if route is provided --}}
+    @if($route)
+        <a href="{{ route($route, [
+            'page' => $page,
+        ])}}">
+    @endif
 
-@if($popup) <div x-data="{ tooltip: false }" class="relative inline-block"> @endif
+    {{-- Wrap with anchor tag if downloadLink is provided --}}
+    @if($downloadLink)
+        <a href="{{ $downloadLink }}" 
+            target="_blank"
+            download="{{ $downloadFile }}
+        ">
+    @endif
 
-    @if($route)<a href="{{ route($route, [
-   'page' => $page,
-    ])}}">@endif
-        <button x-cloak @if($key) {{-- key start --}} wire:key="{{$keyId}}" x-data="{ locked: false }"
-            x-bind:disabled="locked" @click="locked = true" wire:click="{{$key}}({{ $keyId }})"
-            wire:target="{{$key}}({{ $keyId }})" wire:loading.attr="disabled" {{-- key end --}} @endif @if($action)
-            wire:click=" {{ $action }} @if($id) ({{$id}}) @endif" @endif {{$attributes->merge(['class'=>
+    {{-- Popup tooltip container --}}
+    @if($popup) 
+        <div x-data="{ tooltip: false }" class="relative inline-block">     
+    @endif
+
+    {{-- Button element --}}
+        <button x-cloak 
+            @if($action)
+            wire:click=" {{ $action }} @if($id) ({{$id}}) @endif"
+                @if($loading)
+                    wire:target="{{ $action }} @if($id) ({{$id}}) @endif"
+
+                    @if($id)
+                    wire:key="{{$id}}" 
+                    x-data="{ locked: false }"
+                    x-bind:disabled="locked" 
+                    @click="locked = true"
+                    @endif
+
+                    wire:loading.attr="disabled"
+                @endif
+            @endif 
+            
+            {{-- Merge additional classes and styles --}}
+            {{$attributes->merge(['class'=>
             "p-{$p} px-{$px} m-{$m} py-{$py} mt-{$mt} ml-{$ml} {$shadowClasses}
             transition duration-400 cursor-pointer border {$class}"])}}
+        
+            @if($popup)
             @mouseenter="tooltip = true"
-            @mouseleave="tooltip = false">
-            <i class="{{ $icon }}"> </i> @if($label === 'More') @else {{$label}} @endif
-
-            @if($key)
-            <span wire:loading.remove wire:target="{{$key}}({{ $keyId }})">
-                Delete
-            </span>
-            <span wire:loading wire:target="{{$key}}({{ $keyId }})">
-                <span class="fa fa-spinner animate-spin"></span> Deleting
-            </span>
+            @mouseleave="tooltip = false"
             @endif
-        </button>
+            >
 
-        @if($popup) <div x-show="tooltip" x-transition x-cloak
+            <i class="{{ $icon }}"> </i> 
+            @if($label === 'More') 
+            {{-- empty --}}
+            @else
+
+                {{-- Show loading state if applicable --}}
+                @if($loading)
+                    <span wire:loading.remove wire:target="{{$action}}@if($id)({{$id}})@endif">
+                        {{$loading}}
+                    </span>
+                    <span wire:loading wire:target="{{$action}}@if($id)({{$id}})@endif">
+                        <span class="fa fa-spinner animate-spin"></span> {{$loading}}ing...
+                    </span>
+                {{-- Else show normal label --}}
+                @else
+                    {{$label}} 
+                @endif
+
+            @endif       
+
+        </button>
+        
+        {{-- Popup tooltip --}} 
+        @if($popup) 
+        <div x-show="tooltip" x-transition x-cloak
             class="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 bg-gray-700 dark:bg-black text-white text-xs rounded px-2 py-1 whitespace-nowrap">
             {{$popup}}
-        </div>
-        @if($route)</a>@endif
-</div>
+        </div> 
+    </div>
+@endif
 
+{{-- Close anchor tag if route is provided --}}
+@if($route)
+    </a>
+@endif
+
+{{-- Close anchor tag if downloadLink is provided --}}
+@if($downloadLink)
+    </a>
 @endif

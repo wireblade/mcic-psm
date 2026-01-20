@@ -14,7 +14,8 @@
             class="bg-white p-6 rounded-lg w-full max-w-lg dark:bg-gray-800">
 
             <h2 class="text-lg font-bold mb-3">Confirm Deletion</h2>
-            <p>Are you sure you want to delete Project: </p>
+            <p>Are you sure you want to delete file: <i class="text-red-600w">{{ $fileName }}</i>
+            </p>
             <br>
 
             <div class="space-y-3">
@@ -22,25 +23,9 @@
 
                     <x-buttons.button action="$set('openDeleteModal', false)" type="outline" label="Cancel" />
 
+                    <x-buttons.button action="deleteFile" loading="Remove" id="{{ $fileId }}" type="danger-outline" />
 
-                    <x-buttons.button key="deleteFile" keyId="{{ $fileId }}" type="danger-outline" />
-
-                    {{-- <button wire:key="{{ $fileId }}" x-data="{ locked: false }" x-bind:disabled="locked"
-                        @click="locked = true" wire:click="deleteFile({{ $fileId }})"
-                        wire:target="deleteFile({{ $fileId }})" wire:loading.attr="disabled" class="btn btn-danger">
-
-
-                        <span wire:loading.remove wire:target="deleteFile({{ $fileId }})">
-                            Delete
-                        </span>
-
-                        <span wire:loading wire:target="deleteFile({{ $fileId }})">
-                            <span class="fa fa-spinner animate-spin"></span> Deleting
-                        </span>
-
-                    </button> --}}
-
-
+                     {{-- <x-buttons.button key="deleteFile" click="Delete" keyId="{{ $fileId }}" type="danger-outline" /> --}}
 
                 </div>
 
