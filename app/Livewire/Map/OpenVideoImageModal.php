@@ -3,6 +3,7 @@
 namespace App\Livewire\Map;
 
 use App\Models\ProjectFile;
+use Illuminate\Validation\Rules\Exists;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -13,6 +14,8 @@ class OpenVideoImageModal extends Component
 
     public $fileUrl;
     public $fileMimes;
+
+    public $fileName;
 
     #[On('open-video-image-modal')]
     public function openModal($id)
